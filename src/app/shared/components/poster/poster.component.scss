@@ -8,6 +8,14 @@
   justify-content: center;
 }
 
+@media (max-width: 800px) {
+  :host {
+    display: block;
+    transform: none;
+    position: static;
+  }
+}
+
 .poster__label,
 .poster__description {
   display: block;
