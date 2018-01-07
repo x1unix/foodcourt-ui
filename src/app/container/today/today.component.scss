@@ -4,3 +4,15 @@
   height: 100%;
   flex: 1;
 }
+
+@media(max-width: 800px) {
+  .today-header.pos-a {
+    position: static;
+    margin-bottom: 4px;
+  }
+
+  .today-header__date {
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+}
