@@ -9,7 +9,17 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "android-chrome-192x192.png",
+        "apple-touch-icon.png",
+        "favicon-16x16.png",
+        "favicon.ico",
+        "mstile-150x150.png",
+        "android-chrome-512x512.png",
+        "browserconfig.xml",
+        "favicon-32x32.png",
+        "manifest.json",
+        "safari-pinned-tab.svg"
       ],
       "index": "index.html",
       "main": "main.ts",
