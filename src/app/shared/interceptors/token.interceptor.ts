@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 import { SessionsService, LoggerService, URL_LOGIN } from '../services';
+import {Router} from '@angular/router';
 
 const WHITELIST = [
   URL_LOGIN
@@ -18,7 +19,7 @@ const WHITELIST = [
  */
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private auth: SessionsService, private log: LoggerService) {}
+  constructor(private auth: SessionsService, private log: LoggerService, private router: Router) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     // Check if necessary to add token
@@ -41,7 +42,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
           // Emit event if session is expired
           if ((err.status === 403) || (err.status === 401) && !WHITELIST.includes(request.url)) {
+            this.log.warn('HTTP', 'Session expired');
             this.auth.purgeSession(true);
+            this.router.navigate(['/auth']);
           }
 
           return Observable.throw(err);
