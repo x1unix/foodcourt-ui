@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import { SessionsService, LoggerService, URL_LOGIN } from '../services';
 import {Router} from '@angular/router';
 

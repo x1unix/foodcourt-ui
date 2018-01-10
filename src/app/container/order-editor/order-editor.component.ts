@@ -8,7 +8,7 @@ import { DatepickerOptions } from '../../shared/components/datepicker';
 import {DishType, IDish} from '../../shared/interfaces/dish';
 import {ResourceStatus} from '../../shared/helpers/resource-status';
 import {LoadStatusComponent} from '../../shared/helpers/load-status-component';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 import {DatepickerComponent} from '../../shared/components/datepicker/datepicker.component';
 import {ILockStatus} from '../../shared/interfaces/lock-status';

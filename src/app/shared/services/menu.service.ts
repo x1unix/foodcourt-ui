@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import {IDish, DISH_TYPES, DISH_TYPE_COLORS, DishType} from '../interfaces/dish';
 
 @Injectable()

@@ -6,7 +6,7 @@ import {WebHelperService} from '../../shared/services/web-helper.service';
 import {ResourceStatus} from '../../shared/helpers/resource-status';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SearchQuery} from '../helpers/search-query';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 
 const SUCCESS_ALERT_TIMEOUT = 5 * 1000; // 5 sec
 const FORM_UPD_PARAMS = {onlySelf: false, emitEvent: false};

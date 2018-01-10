@@ -2,7 +2,7 @@ import {Component, OnInit, Input, OnDestroy, Output, EventEmitter} from '@angula
 import {IDish} from '../../shared/interfaces/dish';
 import {DishesService} from '../services/dishes.service';
 import {FormControl} from '@angular/forms';
-import {Subscription} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 import {DropEvent} from '../../shared/interfaces/drop-event';
 
 const SEARCH_INPUT_TIMEOUT = 300;
