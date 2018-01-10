@@ -4,6 +4,16 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+
+// RXJS
+// import 'rxjs/add/observable/bindNodeCallback';
+// import 'rxjs/add/observable/bindCallback';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/catch';
+
+
 if (environment.production) {
   enableProdMode();
 }

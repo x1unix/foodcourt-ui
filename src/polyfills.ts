@@ -74,6 +74,3 @@ import 'rxjs/add/observable/bindCallback';
  * Need to import at least one locale-data with intl.
  */
 // import 'intl/locale-data/jsonp/en';
-
-// RXJS
-import 'rxjs/Rx';

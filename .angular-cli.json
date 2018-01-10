@@ -3,6 +3,9 @@
   "project": {
     "name": "foodcourt"
   },
+  "warnings": {
+    "typescriptMismatch": false
+  },
   "apps": [
     {
       "root": "src",
