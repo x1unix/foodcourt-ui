@@ -13,8 +13,8 @@
           (click)="deleteItems()"
         >
           <clr-icon *ngIf="!deleteStatus.isLoading" shape="trash"></clr-icon>
-          <span *ngIf="!deleteStatus.isLoading">Cancel order</span>
-          <span *ngIf="deleteStatus.isLoading">Processing...</span>
+          <span *ngIf="!deleteStatus.isLoading" class="v-xs-hide">Cancel order</span>
+          <span *ngIf="deleteStatus.isLoading" class="v-xs-hide">Processing...</span>
         </button>
 
         <!-- Save button -->
@@ -27,8 +27,8 @@
           (click)="saveChanges()"
         >
           <clr-icon *ngIf="!saveStatus.isLoading" shape="floppy"></clr-icon>
-          <span *ngIf="!saveStatus.isLoading">Save</span>
-          <span *ngIf="saveStatus.isLoading">Saving...</span>
+          <span *ngIf="!saveStatus.isLoading" class="v-xs-hide">Save</span>
+          <span *ngIf="saveStatus.isLoading" class="v-xs-hide">Saving...</span>
         </button>
 
         <!-- Picker -->
@@ -47,9 +47,28 @@
             (click)="openPicker(picker)"
           >
             <clr-icon shape="calendar"></clr-icon>
-            <span>Change date</span>
+            <span class="v-xs-hide">Change date</span>
           </button>
         </app-datepicker>
+
+        <div class="btn-group btn-primary">
+          <button
+            class="btn"
+            (click)="onBackwardClick()"
+            [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
+            title="Previous day"
+          >
+            <clr-icon shape="caret left"></clr-icon>
+          </button>
+          <button
+            class="btn"
+            (click)="onForwardClick()"
+            [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
+            title="Next day"
+          >
+            <clr-icon shape="caret right"></clr-icon>
+          </button>
+        </div>
       </app-header-toolbar>
 
       <!-- Dishes save success message -->

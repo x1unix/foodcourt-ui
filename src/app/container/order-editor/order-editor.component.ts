@@ -220,6 +220,16 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
     this.setSelectedCategoryValue(category, itemId);
   }
 
+  onForwardClick() {
+    this.date = this.date.clone().add(1, 'days');
+    this.updateMenuAndOrder();
+  }
+
+  onBackwardClick() {
+    this.date = this.date.clone().subtract(1, 'days');
+    this.updateMenuAndOrder();
+  }
+
   ngOnDestroy() {
     this.routeParams$.unsubscribe();
     this.menuItems = null;
