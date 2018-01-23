@@ -221,11 +221,19 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
   }
 
   onForwardClick() {
+    if ((this.collectionChanged === true) && !window.confirm(MSG_CONFIRM)) {
+        return;
+    }
+
     this.date = this.date.clone().add(1, 'days');
     this.updateMenuAndOrder();
   }
 
   onBackwardClick() {
+    if ((this.collectionChanged === true) && !window.confirm(MSG_CONFIRM)) {
+      return;
+    }
+
     this.date = this.date.clone().subtract(1, 'days');
     this.updateMenuAndOrder();
   }
