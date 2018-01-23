@@ -6,7 +6,7 @@
         <!-- Delete button -->
         <button
           type="button"
-          class="btn btn-danger"
+          class="btn btn-danger btn-xs-compact"
           *ngIf="(!menuEmpty) && orderEditable && isLoaded && (initialSize > 0)"
           [clrLoading]="deleteStatus.isLoading"
           [disabled]="saveStatus.isLoading || deleteStatus.isLoading"
@@ -20,7 +20,7 @@
         <!-- Save button -->
         <button
           type="button"
-          class="btn btn-success"
+          class="btn btn-success btn-xs-compact"
           *ngIf="!menuEmpty && orderEditable && collectionChanged && (selectedIds.length > 0) && (isLoaded)"
           [clrLoading]="saveStatus.isLoading"
           [disabled]="saveStatus.isLoading || deleteStatus.isLoading"
@@ -38,11 +38,12 @@
           [options]="datePickerOptions"
           [showDateInput]="false"
           position="bottom-left"
+          class="v-xs-hide"
           #picker
         >
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btn-xs-compact"
             [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
             (click)="openPicker(picker)"
           >
@@ -51,7 +52,7 @@
           </button>
         </app-datepicker>
 
-        <div class="btn-group btn-primary">
+        <div class="btn-group btn-primary btn-xs-compact">
           <button
             class="btn"
             (click)="onBackwardClick()"

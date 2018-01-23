@@ -22,6 +22,10 @@ $xs-max: 800px;
     display: initial !important;
   }
 
+  .btn.btn-xs-compact {
+    min-width: initial;
+  }
+
   .v-xs-small {
     margin-top: 0;
     font-size: 0.7rem;
