@@ -134,7 +134,7 @@
                   [selectable]="orderEditable"
                   [selected]="selectedClassItems[item.type] === item.id"
                   [badgeColor]="getDishCategoryColor(item.type)"
-                  (checkChange)="onItemCheckToggle($event, item.type, item.id)"
+                  (click)="onItemCheckToggle(item.type, item.id)"
                 ></app-food-card>
               </div>
             </div>

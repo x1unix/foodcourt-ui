@@ -186,14 +186,15 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
 
   /**
    * Dish select event handler
-   * @param {boolean} isChecked is element checked
+   *
    * @param {number} category dish category id
    * @param {number} itemId dish id
    */
-  onItemCheckToggle(isChecked: boolean, category: number, itemId: number) {
+  onItemCheckToggle(category: number, itemId: number) {
     this.collectionChanged = true;
+    const isChecked = this.selectedClassItems[category] === itemId;
 
-    if (!isChecked) {
+    if (isChecked) {
       // Just remove item if it's unchecked
       this.setSelectedCategoryValue(category, null);
       return;
