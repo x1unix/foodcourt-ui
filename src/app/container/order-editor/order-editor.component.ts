@@ -191,6 +191,10 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
    * @param {number} itemId dish id
    */
   onItemCheckToggle(category: number, itemId: number) {
+    if (!this.orderEditable) {
+      return;
+    }
+
     this.collectionChanged = true;
     const isChecked = this.selectedClassItems[category] === itemId;
 
