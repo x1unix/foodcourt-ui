@@ -1,3 +1,7 @@
+/**
+ * FC CORS proxy patcher for local UI development
+ */
+
 const httpProxy = require('http-proxy');
 const http = require('http');
 const config = require('../proxy.json');
@@ -15,6 +19,8 @@ http.createServer((req, res) => {
 
   // Patch response header
   res.setHeader('Access-Control-Allow-Origin', '*');
-}).listen(port);
+  res.setHeader('Access-Control-Allow-Headers', 'X-XSRF-TOKEN, Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
+}).listen(config.port);
 
 proxy.on('error', (err) => console.error(err));
