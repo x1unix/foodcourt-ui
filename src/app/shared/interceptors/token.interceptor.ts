@@ -6,14 +6,13 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { isNil } from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import { SessionsService, LoggerService, URL_LOGIN } from '../services';
 import {Router} from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 // Set default host API URL for requests.
-const HOST = isNil(environment.host) ? environment.host : `//${document.location.host}`;
+const HOST = environment.host ? environment.host : `//${document.location.host}`;
 
 const WHITELIST = [
   URL_LOGIN
