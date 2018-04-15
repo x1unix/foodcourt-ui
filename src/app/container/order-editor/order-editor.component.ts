@@ -159,6 +159,10 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
     super();
   }
 
+  patchUrl(urlString: string) {
+    return this.helper.patchUrlString(urlString);
+  }
+
   ngOnInit() {
     this.routeParams$ = this.route.params.subscribe(params => {
       // Read route params (date & user id) (optional)

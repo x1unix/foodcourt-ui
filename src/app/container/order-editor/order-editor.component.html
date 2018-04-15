@@ -148,7 +148,7 @@
                   [label]="item.label"
                   [description]="item.description"
                   [category]="getDishCategory(item.type)"
-                  [imageUrl]="item.photoUrl"
+                  [imageUrl]="patchUrl(item.photoUrl)"
                   [rateable]="false"
                   [editable]="false"
                   [selectable]="orderEditable"

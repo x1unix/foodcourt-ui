@@ -157,6 +157,10 @@ export class MenuEditorComponent implements OnInit {
     this.updateMenuItemsList();
   }
 
+  patchUrl(urlString: string) {
+    return this.helper.patchUrlString(urlString);
+  }
+
   initDatePickerOptions() {
     const currentYear = this.date.year();
     this.datePickerOptions = {

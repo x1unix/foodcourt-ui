@@ -1,5 +1,5 @@
 /**
- * FC CORS proxy patcher for local UI development
+ * FC CORS bypass proxy for local UI development
  */
 
 const httpProxy = require('http-proxy');

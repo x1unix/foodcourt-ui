@@ -166,6 +166,10 @@ export class ItemsCatalogComponent extends LoadStatusComponent implements OnInit
     this.formUpdate$.unsubscribe();
   }
 
+  patchUrl(urlString: string) {
+    return this.web.patchUrlString(urlString);
+  }
+
   /**
    * Enable or disable search bar
    * @param isEnabled
