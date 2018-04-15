@@ -6,9 +6,14 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
+import { isNil } from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import { SessionsService, LoggerService, URL_LOGIN } from '../services';
 import {Router} from '@angular/router';
+import { environment } from '../../../environments/environment';
+
+// Set default host API URL for requests.
+const HOST = isNil(environment.host) ? environment.host : `//${document.location.host}`;
 
 const WHITELIST = [
   URL_LOGIN
@@ -25,14 +30,19 @@ export class TokenInterceptor implements HttpInterceptor {
     // Check if necessary to add token
     const addToken = (!WHITELIST.includes(request.url)) || this.auth.isAuthorized;
 
+    const changes: any = {};
+
     if (addToken) {
-      // Add token to request's query params
-      request = request.clone({
-        setParams: {
-          'token': this.auth.token
-        }
-      });
+      changes.setParams = {
+        'token': this.auth.token
+      };
     }
+
+    if (request.url.startsWith('/')) {
+      changes.url = HOST + request.url;
+    }
+
+    request = request.clone(changes);
 
     // Handle HTTP errors
     return next.handle(request)
