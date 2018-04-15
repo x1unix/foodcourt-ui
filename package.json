@@ -8,6 +8,7 @@
     "start": "ng build --aot --watch --delete-output-path=false",
     "serve": "ng serve",
     "build": "ng build --delete-output-path=false --aot --prod --env=prod",
+    "proxy": "node ./utils/proxy.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -29,6 +30,7 @@
     "clarity-ui": "^0.10.12",
     "core-js": "^2.4.1",
     "date-fns": "^1.29.0",
+    "http-proxy": "^1.16.2",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "mutationobserver-shim": "^0.3.2",
@@ -36,6 +38,7 @@
     "ng2-toasty": "^4.0.3",
     "ng2-validation": "^4.2.0",
     "ngx-slimscroll": "^3.4.1",
+    "node-http-proxy": "^0.2.3",
     "rxjs": "^5.5.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
