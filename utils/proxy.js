@@ -15,12 +15,21 @@ console.info(`Proxying ${prettyUrl} => ${config.target}`);
 
 http.createServer((req, res) => {
   console.log(`> ${req.method} ${req.url}`);
-  proxy.web(req, res, {target});
+  const isOption = req.method.toUpperCase() === 'OPTIONS';
+
+  if (!isOption) {
+    proxy.web(req, res, {target});
+  }
 
   // Patch response header
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'X-XSRF-TOKEN, Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
+
+  if (isOption) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end();
+  }
 }).listen(config.port);
 
 proxy.on('error', (err) => console.error(err));
