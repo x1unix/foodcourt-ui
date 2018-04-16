@@ -5,7 +5,7 @@ import {IMessage} from '../interfaces/message';
 import { environment } from '../../../environments/environment';
 
 const ERR_DEFAULT = 'failed to perform request to API service';
-const HOST = environment.host ? environment.host : `//${document.location.host}`;
+const HOST = environment['host'] ? environment['host'] : `//${document.location.host}`;
 
 @Injectable()
 export class WebHelperService {
