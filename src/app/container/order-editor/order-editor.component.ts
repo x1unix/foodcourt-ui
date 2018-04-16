@@ -259,7 +259,7 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
     const currentYear = this.date.year();
     this.datePickerOptions = {
       minYear: currentYear,
-      firstCalendarDay: 1,
+      // firstCalendarDay: 1,
       displayFormat: SERVED_DATE_FORMAT
     };
   }
