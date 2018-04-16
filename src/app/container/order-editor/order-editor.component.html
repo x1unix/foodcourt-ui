@@ -54,7 +54,7 @@
 
         <div class="btn-group btn-primary btn-xs-compact">
           <button
-            class="btn"
+            class="btn order-editor__btn--nav"
             (click)="onBackwardClick()"
             [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
             title="Previous day"
@@ -62,7 +62,7 @@
             <clr-icon shape="caret left"></clr-icon>
           </button>
           <button
-            class="btn"
+            class="btn order-editor__btn--nav"
             (click)="onForwardClick()"
             [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
             title="Next day"

@@ -1,0 +1,18 @@
+:host {
+    display: table;
+    width: 100%;
+}
+
+.header-toolbar__title,
+.header-toolbar__content {
+    display: inline-block;
+}
+
+.header-toolbar__title {
+    float: left;
+    padding-left: 5px;
+}
+
+.header-toolbar__content {
+    float: right;
+}

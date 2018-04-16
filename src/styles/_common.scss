@@ -1,3 +1,9 @@
 .content-container .content-area {
   position: relative;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.main-container .content-container .content-area {
+  padding: 0;
 }
