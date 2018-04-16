@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "ng build --aot --watch --delete-output-path=false",
+    "start": "ng serve",
     "serve": "ng serve",
-    "build": "ng build --delete-output-path=false --aot --prod --env=prod",
+    "build": "ng build --aot --prod --env=prod",
     "proxy": "node ./utils/proxy.js",
     "test": "ng test",
     "lint": "ng lint",
