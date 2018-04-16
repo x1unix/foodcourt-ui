@@ -314,7 +314,7 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
     this.selectedIds = isNil(orderedIds) ? [] : orderedIds;
 
     // Create new empty collection with empty sub-arrays for each category
-    //this.menuItems = this.dishTypes.map((i) => []);
+    this.menuItems.length = 0;
     this.selectedClassItems.length = 0;
     this.selectedClassItems.length = this.dishTypes.length;
 
@@ -338,9 +338,6 @@ export class OrderEditorComponent extends LoadStatusComponent implements OnInit,
       this.initialSize = orderedIds.length;
 
       const grouped = groupBy(menuItems, 'type');
-      // Object.keys(grouped).forEach((groupId) => {
-      //   this.menuItems[groupId] = [...grouped[groupId]];
-      // });
       CATEGORY_DISPLAY_ORDER.forEach((categoryId) => {
         if (!isNil(grouped[categoryId])) {
           this.menuItems.push({
