@@ -53,6 +53,12 @@ export class FoodCardComponent implements OnInit {
    */
   @Input() editorUrl = '';
 
+  /**
+   * Show ratings
+   * @type {boolean}
+   */
+  @Input() showRatings = true;
+
 
   // State props
 

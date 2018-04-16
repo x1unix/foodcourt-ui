@@ -71,6 +71,10 @@ export class TodayComponent extends LoadStatusComponent implements OnInit, OnDes
     this.dishes = null;
   }
 
+  patchUrl(urlString: string) {
+    return this.helper.patchUrlString(urlString);
+  }
+
   /**
    * Gets category name
    * @param {number} catId Category id

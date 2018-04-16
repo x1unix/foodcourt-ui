@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 // Set default host API URL for requests.
-const HOST = environment.host ? environment.host : `//${document.location.host}`;
+const HOST = environment['host'] ? environment['host'] : `//${document.location.host}`;
 
 const WHITELIST = [
   URL_LOGIN

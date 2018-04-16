@@ -54,7 +54,7 @@
 
         <div class="btn-group btn-primary btn-xs-compact">
           <button
-            class="btn"
+            class="btn order-editor__btn--nav"
             (click)="onBackwardClick()"
             [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
             title="Previous day"
@@ -62,7 +62,7 @@
             <clr-icon shape="caret left"></clr-icon>
           </button>
           <button
-            class="btn"
+            class="btn order-editor__btn--nav"
             (click)="onForwardClick()"
             [disabled]="isLoading || saveStatus.isLoading || deleteStatus.isLoading"
             title="Next day"
@@ -134,12 +134,12 @@
       </app-poster>
 
       <div *ngIf="!menuEmpty" class="order-editor__sections">
-        <ng-template ngFor let-section [ngForOf]="menuItems" let-i="index">
-          <section *ngIf="section.length > 0" class="order-editor__section">
-            <h3 class="order-editor__section__title">{{dishTypes[i]}}</h3>
-            <div class="row" *ngIf="section.length > 0">
+        <ng-template ngFor let-section [ngForOf]="menuItems">
+          <section *ngIf="section.items.length > 0" class="order-editor__section">
+            <h3 class="order-editor__section__title">{{dishTypes[section.categoryId]}}</h3>
+            <div class="row" *ngIf="section.items.length > 0">
               <div
-                *ngFor="let item of section"
+                *ngFor="let item of section.items"
                 class="col-lg-3 col-md-6 col-sm-12 col-xs-12"
               >
                 <app-food-card
@@ -151,6 +151,7 @@
                   [imageUrl]="patchUrl(item.photoUrl)"
                   [rateable]="false"
                   [editable]="false"
+                  [showRatings]="false"
                   [selectable]="orderEditable"
                   [selected]="selectedClassItems[item.type] === item.id"
                   [badgeColor]="getDishCategoryColor(item.type)"

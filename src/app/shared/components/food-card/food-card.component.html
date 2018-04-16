@@ -33,11 +33,18 @@
   </div>
   <div class="card-block">
     <div class="row">
-      <div class="food-card__category col-xs-4">
+      <div
+        class="food-card__category col-xs-4"
+        [ngClass]="{'col-xs-4': showRatings, 'col-xs-12': !showRatings}"
+      >
         <span class="badge badge-{{badgeColor}}">{{category}}</span>
       </div>
-      <div class="rating text-right col-xs-8">
-        <app-rating [rating]="rating" [readonly]="disabled || !rateable" (change)="ratingChange.emit($event)"></app-rating>
+      <div *ngIf="showRatings" class="rating text-right col-xs-8">
+        <app-rating 
+          [rating]="rating" 
+          [readonly]="disabled || !rateable" 
+          (change)="ratingChange.emit($event)"
+        ></app-rating>
       </div>
     </div>
   </div>
