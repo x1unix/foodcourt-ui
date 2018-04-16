@@ -15,3 +15,10 @@
 .content-padded__aside {
   padding: 0 24px;
 }
+
+.center-screen {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
