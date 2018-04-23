@@ -24,11 +24,12 @@
   display: block;
   position: absolute;
   -webkit-backdrop-filter: blur(5px);
-  background: #fafafaef;
+  background: rgba(250, 250, 250, 0.94);
   padding: 24px 0;
   z-index: 1;
   left: 0;
   right: 16px;
+  top: 0;
 }
 
 .order-editor__btn--nav {
