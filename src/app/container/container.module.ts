@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrderEditorComponent } from './order-editor/order-editor.component';
 import { TodayComponent } from './today/today.component';
+import { WeeklyViewComponent } from './weekly-view/weekly-view.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { TodayComponent } from './today/today.component';
     ClarityModule,
     SharedModule
   ],
-  declarations: [ContainerComponent, HeaderComponent, DashboardComponent, OrderEditorComponent, TodayComponent]
+  declarations: [ContainerComponent, HeaderComponent, DashboardComponent, OrderEditorComponent, TodayComponent, WeeklyViewComponent]
 })
 export class ContainerModule { }
