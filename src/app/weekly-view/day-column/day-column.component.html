@@ -1,3 +1,18 @@
-<p>
-  day-column works!
-</p>
+<div class="day-column">
+  <div class="day-column__header">
+    <div>
+      <span class="day-column__date">
+        {{dayOfMonth}}
+      </span>
+      <span class="day-column__month">
+        {{month}}
+      </span>
+    </div>
+    <span class="day-column__day">
+      {{dayOfWeek}}
+    </span>
+  </div>
+  <div class="day-column__content">
+    <ng-content></ng-content>
+  </div>
+</div>

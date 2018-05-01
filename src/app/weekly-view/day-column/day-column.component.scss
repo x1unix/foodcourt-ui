@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-left: 1px solid #ccc;
+}
+
+.day-column__date {
+  font-size: 24pt;
+}
+
+.day-column__month {
+  font-size: 9pt;
+  position: relative;
+  right: 4px;
+  bottom: 1px
+}
