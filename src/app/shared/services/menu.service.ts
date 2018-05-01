@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {IDish, DISH_TYPES, DISH_TYPE_COLORS, DishType} from '../interfaces/dish';
 
@@ -42,6 +42,17 @@ export class MenuService {
    */
   getDishes(date: string): Observable<IDish[]> {
     return <Observable<IDish[]>> this.http.get(`/api/menu/${date}/dishes`);
+  }
+
+  /**
+   * Get menu for selected period.
+   *
+   * @param {string} startDate Start date in format YYYYMMDD
+   * @param {string} endDate End date in format YYYYMMDD
+   */
+  getDishesForPeriod(startDate: string, endDate: string) {
+    const params = new HttpParams().set('from', startDate).set('till', endDate);
+    return this.http.get('/api/menu/period/dishes', { params }).toPromise();
   }
 
   /**

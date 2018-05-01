@@ -1,9 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as moment from 'moment'; 
+import * as moment from 'moment';
+import { IDish } from '../../shared/interfaces/dish';
+import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
+import { groupBy } from 'lodash';
+import { DishesService } from '../../management/services/dishes.service';
 
 /**
  * A column with daily menu for one day.
- * 
+ *
  * @example <app-day-column date="20180512"> ... </app-day-column>
  */
 @Component({
@@ -12,12 +16,36 @@ import * as moment from 'moment';
   styleUrls: ['./day-column.component.scss']
 })
 export class DayColumnComponent implements OnInit {
-  
+
   dayOfMonth: number;
 
   dayOfWeek: string;
 
   month: string;
+
+  groups: IKeyValuePair<number, IDish[]>[] = [];
+
+  hasDishes = false;
+
+  @Input() set dishes(dishes: IDish[]) {
+    this.hasDishes = dishes.length > 0;
+
+    // Just clear array if no dishes present
+    if (!this.hasDishes) {
+      this.groups = [];
+      return;
+    }
+
+    // Group dishes by type
+    const grouped = groupBy(dishes, 'type');
+
+    // Convert object map to key-value pair
+    this.groups = Object.keys(grouped).map(k => ({
+      key: +k,
+      value: <IDish[]> grouped[k],
+      tag: this.dishesService.getDishCategory(+k)
+    }));
+  }
 
   /**
    * Set date in format YYYYMMDD.
@@ -34,7 +62,7 @@ export class DayColumnComponent implements OnInit {
     this.month = date.format('MMM');
   }
 
-  constructor() { }
+  constructor(private dishesService: DishesService) { }
 
   ngOnInit() {
   }

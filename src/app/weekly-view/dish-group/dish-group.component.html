@@ -1,3 +1,15 @@
-<p>
-  dish-group works!
-</p>
+<div class="card">
+  <div class="card-header">
+    {{label}}
+  </div>
+  <div class="card-block dish-group__list">
+    <button
+      *ngFor="let dish of dishes"
+      class="btn btn-block dish-group__selector btn-sm"
+      [ngClass]="{'btn-success': dish.id === selectedId, 'btn-link': dish.id !== selectedId}"
+      (click)="onItemSelect(dish)"
+    >
+      <clr-icon shape="caret" dir="right" class="dish-group__before"></clr-icon> {{dish.label}}
+  </button>
+  </div>
+</div>

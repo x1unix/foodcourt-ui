@@ -1,6 +1,10 @@
 <ng-container *ngIf="isLoaded">
-  <app-day-column *ngFor="let date of dates" [date]="date">
-    <span>some content comes here</span>
+  <app-day-column
+    class="weekly-view__column"
+    *ngFor="let date of dates"
+    [dishes]="getMenuForDate(date)"
+    [date]="date"
+  >
   </app-day-column>
 </ng-container>
 

@@ -13,6 +13,13 @@
     </span>
   </div>
   <div class="day-column__content">
-    <ng-content></ng-content>
+    <ng-container *ngIf="hasDishes">
+      <app-dish-group
+        *ngFor="let group of groups"
+        [label]="group.tag"
+        [dishes]="group.value"
+      >
+       </app-dish-group>
+    </ng-container>
   </div>
 </div>

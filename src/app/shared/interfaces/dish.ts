@@ -1,3 +1,6 @@
+/* tslint:disable-next-line:interface-over-type-literal */
+export type MenuSet = { string: IDish[]; };
+
 export enum DishType {
   soup,
   garnish,

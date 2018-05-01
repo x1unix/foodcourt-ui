@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { LoadStatusComponent } from '../shared/helpers';
+import { MenuService, WebHelperService } from '../shared/services';
+import { IDish, MenuSet } from '../shared/interfaces/dish';
+import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
+import { isArray } from 'lodash';
+
+
 
 @Component({
   selector: 'app-weekly-view',
@@ -9,11 +15,24 @@ import { LoadStatusComponent } from '../shared/helpers';
 })
 export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
 
-  dates = [];
-
   private readonly FC_DATE_FORMAT = 'YYYYMMDD';
 
+  /**
+   * Array of dates
+   */
+  dates = [];
+
+  /**
+   * Selected start date
+   */
   private startDate: moment.Moment;
+
+  /**
+   * Date and menu dictionary
+   */
+  private menus: MenuSet = null;
+
+  private period: string[] = [];
 
   /**
    * Set date for weekly viewer
@@ -37,16 +56,50 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
       datesList.push(date.add(1, 'd').format(this.FC_DATE_FORMAT));
     }
 
+    this.period = [
+      datesList[0],
+      datesList[datesList.length - 1]
+    ];
+
     this.dates = datesList;
   }
 
-  constructor() {
+  constructor(private menu: MenuService, private helper: WebHelperService) {
     super();
   }
 
   ngOnInit() {
     this.date = moment();
-    this.isLoaded = true;
+    this.fetchData();
+  }
+
+  /**
+   * Returns menu for specified date
+   * @param date Date in format YYYYMMDD
+   */
+  getMenuForDate(date: string): IDish[] {
+    return isArray(this.menus[date]) ? this.menus[date] : [];
+  }
+
+  /**
+   * Fetch data from the server
+   */
+  async fetchData() {
+    const start = this.period[0];
+    const end = this.period[1];
+    this.isLoading = true;
+
+    try {
+      // Fetch menus
+      const menus = await this.menu.getDishesForPeriod(start, end);
+      this.menus = <MenuSet> menus;
+
+      // Set UI state
+      this.isLoaded = true;
+    } catch (err) {
+      this.error = this.helper.extractResponseError(err);
+      this.isFailed = true;
+    }
   }
 
 }
