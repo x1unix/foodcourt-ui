@@ -1,3 +1,19 @@
-<app-day-column *ngFor="let date of dates" [date]="date">
-  <span>some content comes here</span>
-</app-day-column>
+<ng-container *ngIf="isLoaded">
+  <app-day-column *ngFor="let date of dates" [date]="date">
+    <span>some content comes here</span>
+  </app-day-column>
+</ng-container>
+
+<!-- preloader -->
+<app-spinner *ngIf="isLoading" style="height: 100%"></app-spinner>
+
+<!-- retry message -->
+<app-poster
+  *ngIf="isFailed"
+  class="poster--error"
+  icon="bug"
+  label="Failed to get order information"
+>
+  <code class="poster__error">{{error}}</code>
+  <a href="#">Try again</a>
+</app-poster>

@@ -46,6 +46,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
 
   ngOnInit() {
     this.date = moment();
+    this.isLoaded = true;
   }
 
 }
