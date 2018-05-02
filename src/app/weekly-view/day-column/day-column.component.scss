@@ -1,8 +1,12 @@
 :host {
   display: block;
   width: 100%;
-  padding: 10px;
+}
+
+.day-column {
   border-left: 1px solid #ccc;
+  padding: 10px;
+  padding-bottom: 86px;
 }
 
 .day-column__date {
