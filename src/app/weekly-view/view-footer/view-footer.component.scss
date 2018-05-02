@@ -18,3 +18,12 @@
 .view-footer__contents {
   text-align: center;
 }
+
+
+@media (max-width: 768px) {
+  .view-footer__btn--submit {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+}

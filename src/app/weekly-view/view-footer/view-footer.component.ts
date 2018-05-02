@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-view-footer',
@@ -8,6 +8,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ViewFooterComponent implements OnInit {
 
   @Input() visible = true;
+
+  @Input() busy = false;
+
+  @Output() save = new EventEmitter();
 
   constructor() { }
 
