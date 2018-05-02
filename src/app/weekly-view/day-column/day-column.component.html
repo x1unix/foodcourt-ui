@@ -1,16 +1,18 @@
 <div class="day-column">
   <div class="day-column__header">
-    <div>
-      <span class="day-column__date">
-        {{dayOfMonth}}
-      </span>
-      <span class="day-column__month">
-        {{month}}
+    <div class="day-column__header__content">
+      <div class="day-column__title">
+        <span class="day-column__date">
+          {{dayOfMonth}}
+        </span>
+        <span class="day-column__month">
+          {{month}}
+        </span>
+      </div>
+      <span class="day-column__day">
+        {{dayOfWeek}}
       </span>
     </div>
-    <span class="day-column__day">
-      {{dayOfWeek}}
-    </span>
   </div>
   <div class="day-column__content">
     <ng-container *ngIf="hasDishes">

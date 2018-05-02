@@ -19,3 +19,47 @@
   right: 4px;
   bottom: 1px
 }
+
+// Mobile styles
+@media (max-width: 768px) {
+  .day-column__title {
+    display: inline;
+  }
+
+  .day-column__header {
+    margin-top: 12px;
+    text-align: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      height: 1px;
+      background: #ccc;
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .day-column__header__content {
+    background: #fafafa;
+    display: inline;
+    z-index: 1;
+    position: relative;
+    padding: 0 10px;
+  }
+
+  .day-column {
+    padding-bottom: 15px;
+  }
+
+  .day-column__date,
+  .day-column__month,
+  .day-column__day {
+    font-size: 16pt;
+    padding-top: 16px;
+    position: static;
+  }
+}

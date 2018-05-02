@@ -9,3 +9,14 @@
 .weekly-view__column {
   width: 20%;
 }
+
+// Mobile styles
+@media(max-width: 768px) {
+  :host {
+    flex-direction: column;
+  }
+
+  .weekly-view__column {
+    width: 100%;
+  }
+}
