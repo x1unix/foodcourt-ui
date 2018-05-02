@@ -4,6 +4,7 @@
     *ngFor="let date of dates"
     [dishes]="getMenuForDate(date)"
     [date]="date"
+    [orders]="getDayOrders(date)"
   >
   </app-day-column>
 </ng-container>

@@ -18,6 +18,7 @@
         *ngFor="let group of groups"
         [label]="group.tag"
         [dishes]="group.value"
+        [selectedId]="orderedItems.get(group.key)"
       >
        </app-dish-group>
     </ng-container>

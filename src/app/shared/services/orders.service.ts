@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {IMessage} from '../interfaces/message';
 import {IDish} from '../interfaces/dish';
@@ -21,6 +21,17 @@ export class OrdersService {
    */
   orderDishes(dishes: number[], date: string, userId: string): Observable<IMessage> {
     return <Observable<IMessage>> this.http.post(`/api/orders/${date}/users/${userId}`, dishes);
+  }
+
+  /**
+   * Returns info about ordered dishes of user for specified period
+   * @param userId User ID
+   * @param startDate Start date (YYYYMMDD)
+   * @param endDate End date (YYYYMMDD)
+   */
+  getUserOrdersForPeriod(userId: number, startDate: string, endDate: string): Promise<{string: number[]}> {
+    const params = new HttpParams().set('from', startDate).set('till', endDate);
+    return <Promise<{ string: number[] }>> this.http.get(`/api/orders/users/${userId}`, { params }).toPromise();
   }
 
   /**

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { IDish } from '../../shared/interfaces/dish';
 import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
-import { groupBy } from 'lodash';
+import { groupBy, find, isNil } from 'lodash';
 import { DishesService } from '../../management/services/dishes.service';
 
 /**
@@ -27,8 +27,13 @@ export class DayColumnComponent implements OnInit {
 
   hasDishes = false;
 
+  orderedItems = new Map<number, number>();
+
+  private orderedIds = [];
+
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
+    this.orderedItems = new Map<number, number>();
 
     // Just clear array if no dishes present
     if (!this.hasDishes) {
@@ -45,6 +50,28 @@ export class DayColumnComponent implements OnInit {
       value: <IDish[]> grouped[k],
       tag: this.dishesService.getDishCategory(+k)
     }));
+  }
+
+
+  /**
+   * Ordered dishes ids.
+   */
+  @Input() set orders(ids: number[]) {
+    this.orderedItems.clear();
+
+    // Match ordered ids to items in each category
+    this.groups.forEach(group => {
+      const found = find(group.value, (dish: IDish) => ids.includes(dish.id));
+      if (!isNil(found)) {
+        this.orderedItems.set(group.key, found.id);
+      }
+    });
+
+    this.orderedIds = ids;
+  }
+
+  get orders(): number[] {
+    return this.orderedIds;
   }
 
   /**

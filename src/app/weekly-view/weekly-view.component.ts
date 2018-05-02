@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { LoadStatusComponent } from '../shared/helpers';
-import { MenuService, WebHelperService } from '../shared/services';
+import { MenuService, WebHelperService, SessionsService, OrdersService } from '../shared/services';
 import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
-import { isArray } from 'lodash';
+import { isArray, isNil } from 'lodash';
 
 
-
+/**
+ * Weekly view page
+ */
 @Component({
   selector: 'app-weekly-view',
   templateUrl: './weekly-view.component.html',
@@ -21,6 +23,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * Array of dates
    */
   dates = [];
+
+  /**
+   * Date to ids map
+   */
+  ordered: {string: number[]} = null;
 
   /**
    * Selected start date
@@ -64,7 +71,12 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
     this.dates = datesList;
   }
 
-  constructor(private menu: MenuService, private helper: WebHelperService) {
+  constructor(
+    private menu: MenuService,
+    private orders: OrdersService,
+    private session: SessionsService,
+    private helper: WebHelperService
+  ) {
     super();
   }
 
@@ -82,17 +94,35 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   }
 
   /**
+   * Gets array of item ids
+   * @param day Date in format (YYYYMMDD)
+   */
+  getDayOrders(day: string): number[] {
+    if (isNil(this.ordered)) {
+      return [];
+    }
+
+    const value = this.ordered[day];
+
+    return isArray(value) ? value : [];
+  }
+
+  /**
    * Fetch data from the server
    */
   async fetchData() {
     const start = this.period[0];
     const end = this.period[1];
     this.isLoading = true;
+    this.ordered = null;
 
     try {
       // Fetch menus
       const menus = await this.menu.getDishesForPeriod(start, end);
       this.menus = <MenuSet> menus;
+
+      const userId = this.session.currentUser.id;
+      this.ordered = await this.orders.getUserOrdersForPeriod(userId, start, end);
 
       // Set UI state
       this.isLoaded = true;
