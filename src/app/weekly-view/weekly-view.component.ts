@@ -40,7 +40,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   set date(newDate: moment.Moment) {
     // Create a new date with week start.
     // isoWeek means that Monday is start day.
-    const date = newDate.startOf('isoWeek');
+    const date = newDate.clone().startOf('isoWeek');
 
     // Clone the date and save it.
     this.startDate = date.clone();
@@ -53,7 +53,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
       // Add one day and format to FoodCourt date format.
       // moment.add() operation is mutable, so it will modify
       // the date variable each time and return itself.
-      datesList.push(date.add(1, 'd').format(this.FC_DATE_FORMAT));
+      datesList.push((i > 0 ? date.add(1, 'd') : date).format(this.FC_DATE_FORMAT));
     }
 
     this.period = [
