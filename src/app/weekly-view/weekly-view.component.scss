@@ -10,6 +10,13 @@
   width: 20%;
 }
 
+.weekly-view__footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 // Mobile styles
 @media(max-width: 768px) {
   :host {
@@ -18,5 +25,15 @@
 
   .weekly-view__column {
     width: 100%;
+  }
+
+  .weekly-view__submit {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .weekly-view__column:last-child {
+    margin-bottom: 32px;
   }
 }
