@@ -33,12 +33,12 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   /**
    * Is form changed
    */
-  changed = false;
+  dirty = false;
 
   /**
    * Order form errors
    */
-  formError: string = null;
+  lastFormError: string = null;
 
   /**
    * Has order form an error
@@ -56,6 +56,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   private menus: MenuSet = null;
 
   private period: string[] = [];
+
+  /**
+   * Form errors
+   */
+  private formErrors = new Map<string, string>();
 
 
   /**
@@ -108,10 +113,42 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * @param ids List of new item ids
    */
   onOrderChange(date: string, event: DayColumnEvent) {
-    this.changed = true;
+    // Mark form as dirty
+    this.dirty = true;
+
+    // Put result
     this.ordered[date] = event.items;
-    this.formError = event.error;
-    this.formHasError = event.failed;
+
+    if (event.failed) {
+      // Put errors to the stack if have some
+      this.formErrors.set(date, event.error);
+
+      // Print error
+      this.lastFormError = event.error;
+    } else {
+      // If no errors, remove it
+      this.formErrors.delete(date);
+    }
+
+    this.updateErrorMessage(!event.failed);
+  }
+
+  /**
+   * Updates form error message state
+   * @param popPreviousError Print previous error
+   */
+  private updateErrorMessage(popPreviousError = false) {
+    // Determine if some errors left
+    this.formHasError = this.formErrors.size > 0;
+
+    if (!this.formHasError) {
+      // Clear message if no errors left
+      this.lastFormError = null;
+    } else if (popPreviousError) {
+      // Get previous error from the error messages stack
+      // if required.
+      this.lastFormError = this.formErrors.values().next().value;
+    }
   }
 
   /**
@@ -140,7 +177,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * Fetch data from the server
    */
   async fetchData() {
-    this.changed = false;
+    this.dirty = false;
     const start = this.period[0];
     const end = this.period[1];
     this.isLoading = true;

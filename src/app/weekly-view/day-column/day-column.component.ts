@@ -122,7 +122,7 @@ export class DayColumnComponent implements OnInit {
     }
 
     // Report form changes with a bit delay
-    setTimeout(() => {
+    // setTimeout(() => {
       let failed = false;
       let error = null;
       const items = compact(this.orderedItems);
@@ -138,7 +138,7 @@ export class DayColumnComponent implements OnInit {
         // Emit change event
         this.change.emit({ failed, error, items });
       }
-    }, 200);
+    // }, 200);
   }
 
   isCategoryInOrder(categoryId: number): boolean {

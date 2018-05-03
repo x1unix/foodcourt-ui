@@ -11,10 +11,9 @@
 
   <app-view-footer
     class="weekly-view__footer"
-    [errorMessage]="formError"
-    [visible]="changed"
+    [visible]="dirty"
     [showError]="formHasError"
-    [errorMessage]="formError"
+    [errorMessage]="lastFormError"
   >
   </app-view-footer>
 </ng-container>
