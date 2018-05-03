@@ -11,7 +11,7 @@
 
   <app-view-footer
     class="weekly-view__footer"
-    [visible]="dirty"
+    [showSaveButton]="dirty && !formHasError"
     [showError]="formHasError"
     [errorMessage]="lastFormError"
   >

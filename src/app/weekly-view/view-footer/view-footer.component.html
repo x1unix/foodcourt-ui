@@ -1,6 +1,11 @@
 <div class="view-footer" [ngClass]="{'view-footer__hidden': !visible}">
+  <div class="view-footer__aside">
+    <button class="btn btn-icon view-footer__nav">
+      <clr-icon shape="caret" dir="left"></clr-icon>
+    </button>
+  </div>
   <div class="view-footer__contents">
-    <ng-container *ngIf="!showError">
+    <ng-container *ngIf="showSaveButton">
       <button *ngIf="!busy" class="btn btn-primary view-footer__btn--submit">
         Save changes
       </button>
@@ -8,13 +13,14 @@
         Saving changes...
       </button>
     </ng-container>
-    <app-alert
-      *ngIf="showError"
-      [dismissable]="false"
-      style="display: inline-block"
-      [styles]="{'minWidth': '355px'}"
-    >
+    <span class="text-danger" *ngIf="showError">
+      <clr-icon shape="error-standard"></clr-icon>
       {{errorMessage}}
-    </app-alert>
+    </span>
+  </div>
+  <div class="view-footer__aside">
+    <button class="btn btn-icon view-footer__nav">
+      <clr-icon shape="caret" dir="right"></clr-icon>
+    </button>
   </div>
 </div>

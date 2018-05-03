@@ -7,7 +7,6 @@ import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
 import { DayColumnEvent } from './day-column/day-column-event';
 
-
 /**
  * Weekly view page
  */
@@ -19,6 +18,12 @@ import { DayColumnEvent } from './day-column/day-column-event';
 export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
 
   private readonly FC_DATE_FORMAT = 'YYYYMMDD';
+
+  private readonly DAY_SUNDAY = 7;
+
+  private readonly DAY_SATURDAY = 6;
+
+  private readonly DAYS_TOTAL = 7;
 
   /**
    * Array of dates
@@ -102,8 +107,29 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
     super();
   }
 
+  /**
+   * Returns first day of the current week.
+   * If today is holiday (sunday, monday), jumps to the next week
+   */
+  private determineStartDay(): moment.Moment {
+    const today = moment();
+
+    // Current week day (ISO)
+    const weekday = today.isoWeekday();
+
+    if (weekday >= this.DAY_SATURDAY) {
+      // Jump to the next monday if today is saturday or sunday
+      const skipCount = (this.DAYS_TOTAL - weekday) + 1;
+      return today.add(skipCount, 'd').clone();
+    }
+
+    // Otherwise, just jump to current week start
+    return today.clone().startOf('isoWeek');
+  }
+
   ngOnInit() {
-    this.date = moment();
+    // Determine start day
+    this.date = this.determineStartDay();
     this.fetchData();
   }
 

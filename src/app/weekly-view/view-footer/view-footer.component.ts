@@ -10,6 +10,8 @@ export class ViewFooterComponent implements OnInit {
 
   @Input() visible = true;
 
+  @Input() showSaveButton = false;
+
   @Input() busy = false;
 
   @Input() errorMessage = '';
