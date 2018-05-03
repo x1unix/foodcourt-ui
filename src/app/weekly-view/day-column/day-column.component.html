@@ -21,6 +21,7 @@
         [name]="group.key"
         [label]="group.tag"
         [dishes]="group.value"
+        [highlight]="errorGroup == group.key"
         [(ngModel)]="orderedItems[group.key]"
         (change)="onDishSelect(group.key, $event)"
       >

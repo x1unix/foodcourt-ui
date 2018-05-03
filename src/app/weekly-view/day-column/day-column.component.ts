@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 import { DishType, IDish } from '../../shared/interfaces/dish';
 import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
-import { groupBy, find, isNil } from 'lodash';
+import { groupBy, find, isNil, compact } from 'lodash';
 import { DishesService } from '../../management/services/dishes.service';
 
 /**
@@ -29,7 +30,21 @@ export class DayColumnComponent implements OnInit {
 
   orderedItems: number[] = [];
 
+  errorGroup = -1;
+
   private orderedIds = [];
+
+  /**
+   * Date in FC format (YYYYMMDD)
+   */
+  private fcDate: string;
+
+  /**
+   * Order state error event
+   */
+  @Output() error = new EventEmitter<string>();
+
+  @Output() change = new EventEmitter<number[]>();
 
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
@@ -87,6 +102,7 @@ export class DayColumnComponent implements OnInit {
     this.dayOfWeek = date.format('dddd');
     this.dayOfMonth = date.date();
     this.month = date.format('MMM');
+    this.fcDate = fcDate;
   }
 
   constructor(private dishesService: DishesService) { }
@@ -107,8 +123,50 @@ export class DayColumnComponent implements OnInit {
       this.orderedItems[DishType.special] = null;
     }
 
-    // console.log(`Selected ${this.dishesService.getDishCategory(categoryId)} "${dish.label}"`);
-    // console.log(this.orderedItems[categoryId], dish.id);
+    // Report if order form is correct
+    setTimeout(() => {
+      try {
+        this.checkOrderState();
+      } catch (err) {
+        this.error.emit(err.message);
+      }
+    }, 300);
+
+    // Emit change event
+    this.change.emit(compact(this.orderedItems));
+  }
+
+  isCategoryInOrder(categoryId: number): boolean {
+    return !isNil(this.orderedItems[categoryId]);
+  }
+
+  /**
+   * Checks that order state is correct
+   */
+  checkOrderState() {
+    // Reset error group
+    this.errorGroup = -1;
+
+    // Check if main is ordered but not the garnish
+    if (this.isCategoryInOrder(DishType.main) && !this.isCategoryInOrder(DishType.garnish)) {
+      this.errorGroup = DishType.garnish;
+      throw new Error(`Please select garnish or special for ${this.dayOfMonth}th ${this.month}`);
+    }
+
+    // The same approach but vice-versa
+    if (this.isCategoryInOrder(DishType.garnish) && !this.isCategoryInOrder(DishType.main)) {
+      this.errorGroup = DishType.main;
+      throw new Error(`Please select a main dish or special for ${this.dayOfMonth}th ${this.month}`);
+    }
+  }
+
+
+  /**
+   * Get ordered items
+   */
+  async getOrderSummary(): Promise<number[]> {
+    return compact(this.orderedItems);
+
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngClass]="{'dish-group--highlight': highlight}">
   <div class="card-header">
     {{label}}
   </div>
@@ -8,6 +8,7 @@
       class="btn btn-block dish-group__selector btn-sm"
       [ngClass]="{'btn-success': dish.id === value, 'btn-link': dish.id !== value}"
       (click)="onItemSelect(dish)"
+      [disabled]="disabled"
     >
       <clr-icon shape="caret" dir="right" class="dish-group__before"></clr-icon> {{dish.label}}
   </button>

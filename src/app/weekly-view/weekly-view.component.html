@@ -5,10 +5,16 @@
     [dishes]="getMenuForDate(date)"
     [date]="date"
     [orders]="getDayOrders(date)"
+    (change)="onOrderChange(date, $event)"
+    (error)="onFormError($event)"
   >
   </app-day-column>
 
-  <app-view-footer class="weekly-view__footer">
+  <app-view-footer
+    *ngIf="changed"
+    class="weekly-view__footer"
+    [errorMessage]="formError"
+  >
   </app-view-footer>
 </ng-container>
 

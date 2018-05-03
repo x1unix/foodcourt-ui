@@ -1,13 +1,20 @@
 <div class="view-footer" [ngClass]="{'view-footer__hidden': !visible}">
   <div class="view-footer__contents">
-    <button
-      *ngIf="!busy"
-      class="btn btn-primary view-footer__btn--submit"
+    <ng-container *ngIf="!showError">
+      <button *ngIf="!busy" class="btn btn-primary view-footer__btn--submit">
+        Save changes
+      </button>
+      <button *ngIf="busy" class="btn btn-link" [clrLoading]="true">
+        Saving changes...
+      </button>
+    </ng-container>
+    <app-alert
+      *ngIf="showError"
+      [dismissable]="false"
+      style="display: inline-block"
+      [styles]="{'minWidth': '350px'}"
     >
-      Save changes
-    </button>
-    <button *ngIf="busy" class="btn btn-link" [clrLoading]="true">
-      Saving changes...
-    </button>
+      {{errorMessage}}
+    </app-alert>
   </div>
 </div>

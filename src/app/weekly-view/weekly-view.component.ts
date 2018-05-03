@@ -30,6 +30,16 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   ordered: {string: number[]} = null;
 
   /**
+   * Is form changed
+   */
+  changed = false;
+
+  /**
+   * Order form errors
+   */
+  formError: string = null;
+
+  /**
    * Selected start date
    */
   private startDate: moment.Moment;
@@ -40,6 +50,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   private menus: MenuSet = null;
 
   private period: string[] = [];
+
 
   /**
    * Set date for weekly viewer
@@ -86,6 +97,21 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   }
 
   /**
+   * Day order change event handler
+   * @param date Date (YYYYMMDD)
+   * @param ids List of new item ids
+   */
+  onOrderChange(date: string, ids: number[]) {
+    this.changed = true;
+    this.ordered[date] = ids;
+    this.formError = null;
+  }
+
+  onFormError(message: string) {
+    this.formError = message;
+  }
+
+  /**
    * Returns menu for specified date
    * @param date Date in format YYYYMMDD
    */
@@ -111,6 +137,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * Fetch data from the server
    */
   async fetchData() {
+    this.changed = false;
     const start = this.period[0];
     const end = this.period[1];
     this.isLoading = true;

@@ -13,6 +13,13 @@
   }
 }
 
+.card.dish-group--highlight {
+  background: #feecb5;
+  color: #565656;
+  border: 1px solid #ffdc0b;
+}
+
+
 .dish-group__before {
   font-size: inherit;
   color: #ccc;

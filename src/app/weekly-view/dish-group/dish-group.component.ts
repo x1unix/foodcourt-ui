@@ -28,7 +28,20 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
    */
   @Input() label: string;
 
+  /**
+   * Control name
+   */
   @Input() name: string;
+
+  /**
+   * Highlight control
+   */
+  @Input() highlight = false;
+
+  /**
+   * Is control disabled
+   */
+  disabled = false;
 
   private innerValue = -1;
 
@@ -46,11 +59,6 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
    * Dish selection change event
    */
   @Output() change = new EventEmitter<IDish>();
-
-  /**
-   * Is control disabled?
-   */
-  disabled = false;
 
   /**
    * get accessor
