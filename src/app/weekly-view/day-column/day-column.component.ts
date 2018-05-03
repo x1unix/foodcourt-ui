@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
-import { IDish } from '../../shared/interfaces/dish';
+import { DishType, IDish } from '../../shared/interfaces/dish';
 import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
 import { groupBy, find, isNil } from 'lodash';
 import { DishesService } from '../../management/services/dishes.service';
@@ -27,13 +27,13 @@ export class DayColumnComponent implements OnInit {
 
   hasDishes = false;
 
-  orderedItems = new Map<number, number>();
+  orderedItems: number[] = [];
 
   private orderedIds = [];
 
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
-    this.orderedItems = new Map<number, number>();
+    this.orderedItems = [];
 
     // Just clear array if no dishes present
     if (!this.hasDishes) {
@@ -57,13 +57,13 @@ export class DayColumnComponent implements OnInit {
    * Ordered dishes ids.
    */
   @Input() set orders(ids: number[]) {
-    this.orderedItems.clear();
+    this.orderedItems.length = 0;
 
     // Match ordered ids to items in each category
     this.groups.forEach(group => {
       const found = find(group.value, (dish: IDish) => ids.includes(dish.id));
       if (!isNil(found)) {
-        this.orderedItems.set(group.key, found.id);
+        this.orderedItems[group.key] = found.id;
       }
     });
 
@@ -92,6 +92,23 @@ export class DayColumnComponent implements OnInit {
   constructor(private dishesService: DishesService) { }
 
   ngOnInit() {
+  }
+
+  async onDishSelect(categoryId: number, dish: IDish) {
+    if (categoryId === DishType.special) {
+      // Unselect main and garnish if special selected
+      this.orderedItems[DishType.main] = null;
+      this.orderedItems[DishType.garnish] = null;
+      return;
+    }
+
+    if ((categoryId === DishType.main) || (categoryId === DishType.garnish)) {
+      // Unselect special dish if main dish or garnish selected
+      this.orderedItems[DishType.special] = null;
+    }
+
+    // console.log(`Selected ${this.dishesService.getDishCategory(categoryId)} "${dish.label}"`);
+    // console.log(this.orderedItems[categoryId], dish.id);
   }
 
 }

@@ -19,7 +19,7 @@ const SERVED_DATE_FORMAT = 'YYYYMMDD';
 // Route params names
 const PARAM_UID = 'userId';
 const PARAM_DATE = 'date';
-const CATEGORY_DISPLAY_ORDER = [0,1,2,4,3];
+const CATEGORY_DISPLAY_ORDER = [0, 1, 2, 4, 3];
 
 const MSG_CONFIRM = 'Do you want to move to other date without saving changes? All unsaved changes will be lost.';
 

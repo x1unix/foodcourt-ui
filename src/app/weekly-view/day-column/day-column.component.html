@@ -18,9 +18,11 @@
     <ng-container *ngIf="hasDishes">
       <app-dish-group
         *ngFor="let group of groups"
+        [name]="group.key"
         [label]="group.tag"
         [dishes]="group.value"
-        [selectedId]="orderedItems.get(group.key)"
+        [(ngModel)]="orderedItems[group.key]"
+        (change)="onDishSelect(group.key, $event)"
       >
        </app-dish-group>
     </ng-container>
