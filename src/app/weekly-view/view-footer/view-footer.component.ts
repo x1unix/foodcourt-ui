@@ -14,11 +14,9 @@ export class ViewFooterComponent implements OnInit {
 
   @Input() errorMessage = '';
 
-  @Output() save = new EventEmitter();
+  @Input() showError = false;
 
-  get showError(): boolean {
-    return isString(this.errorMessage) && (this.errorMessage.length > 0);
-  }
+  @Output() save = new EventEmitter();
 
   constructor() { }
 

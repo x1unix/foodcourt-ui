@@ -5,6 +5,7 @@ import { DishType, IDish } from '../../shared/interfaces/dish';
 import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
 import { groupBy, find, isNil, compact } from 'lodash';
 import { DishesService } from '../../management/services/dishes.service';
+import { DayColumnEvent } from './day-column-event';
 
 /**
  * A column with daily menu for one day.
@@ -40,11 +41,9 @@ export class DayColumnComponent implements OnInit {
   private fcDate: string;
 
   /**
-   * Order state error event
+   * Column values change event
    */
-  @Output() error = new EventEmitter<string>();
-
-  @Output() change = new EventEmitter<number[]>();
+  @Output() change = new EventEmitter<DayColumnEvent>();
 
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
@@ -115,7 +114,6 @@ export class DayColumnComponent implements OnInit {
       // Unselect main and garnish if special selected
       this.orderedItems[DishType.main] = null;
       this.orderedItems[DishType.garnish] = null;
-      return;
     }
 
     if ((categoryId === DishType.main) || (categoryId === DishType.garnish)) {
@@ -123,17 +121,24 @@ export class DayColumnComponent implements OnInit {
       this.orderedItems[DishType.special] = null;
     }
 
-    // Report if order form is correct
+    // Report form changes with a bit delay
     setTimeout(() => {
+      let failed = false;
+      let error = null;
+      const items = compact(this.orderedItems);
+
       try {
+        // Check if order form filled correctly
         this.checkOrderState();
       } catch (err) {
-        this.error.emit(err.message);
+        // Add error information
+        failed = true;
+        error = err.message;
+      } finally {
+        // Emit change event
+        this.change.emit({ failed, error, items });
       }
-    }, 300);
-
-    // Emit change event
-    this.change.emit(compact(this.orderedItems));
+    }, 200);
   }
 
   isCategoryInOrder(categoryId: number): boolean {

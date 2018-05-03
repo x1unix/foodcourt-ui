@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { isArray, isNil } from 'lodash';
 import { LoadStatusComponent } from '../shared/helpers';
 import { MenuService, WebHelperService, SessionsService, OrdersService } from '../shared/services';
 import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
-import { isArray, isNil } from 'lodash';
+import { DayColumnEvent } from './day-column/day-column-event';
 
 
 /**
@@ -38,6 +39,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * Order form errors
    */
   formError: string = null;
+
+  /**
+   * Has order form an error
+   */
+  formHasError = false;
 
   /**
    * Selected start date
@@ -101,14 +107,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * @param date Date (YYYYMMDD)
    * @param ids List of new item ids
    */
-  onOrderChange(date: string, ids: number[]) {
+  onOrderChange(date: string, event: DayColumnEvent) {
     this.changed = true;
-    this.ordered[date] = ids;
-    this.formError = null;
-  }
-
-  onFormError(message: string) {
-    this.formError = message;
+    this.ordered[date] = event.items;
+    this.formError = event.error;
+    this.formHasError = event.failed;
   }
 
   /**

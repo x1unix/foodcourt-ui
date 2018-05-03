@@ -6,13 +6,14 @@
     [date]="date"
     [orders]="getDayOrders(date)"
     (change)="onOrderChange(date, $event)"
-    (error)="onFormError($event)"
   >
   </app-day-column>
 
   <app-view-footer
-    *ngIf="changed"
     class="weekly-view__footer"
+    [errorMessage]="formError"
+    [visible]="changed"
+    [showError]="formHasError"
     [errorMessage]="formError"
   >
   </app-view-footer>
