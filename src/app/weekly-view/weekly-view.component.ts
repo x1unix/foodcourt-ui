@@ -152,6 +152,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
    * @param direction Navigation direction
    */
   onNavigate(direction: NavigationDirection) {
+    // Warn when user didn't save his changes and leaving the page
+    if (this.dirty && !window.confirm(`You didn't save your changes, are you sure you want to leave?`)) {
+      return;
+    }
+
     const tempDate = this.startDate.clone();
     this.isLoading = true;
 
