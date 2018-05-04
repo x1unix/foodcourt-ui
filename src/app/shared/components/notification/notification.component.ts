@@ -24,6 +24,8 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     // Listen for incoming notifications
     this.subscription = this.notificationsService.listen((notification) => {
+      this.notifications.length = 0;
+
       // Add notification to view
       const idx = this.notifications.push(notification);
 

@@ -134,24 +134,22 @@ export class DayColumnComponent implements OnInit {
       this.orderedItems[DishType.special] = null;
     }
 
-    // Report form changes with a bit delay
-    // setTimeout(() => {
-      let failed = false;
-      let error = null;
-      const items = compact(this.orderedItems);
+    // Report form changes with a bit delay§
+    let failed = false;
+    let error = null;
+    const items = compact(this.orderedItems);
 
-      try {
-        // Check if order form filled correctly
-        this.checkOrderState();
-      } catch (err) {
-        // Add error information
-        failed = true;
-        error = err.message;
-      } finally {
-        // Emit change event
-        this.change.emit({ failed, error, items });
-      }
-    // }, 200);
+    try {
+      // Check if order form filled correctly
+      this.checkOrderState();
+    } catch (err) {
+      // Add error information
+      failed = true;
+      error = err.message;
+    } finally {
+      // Emit change event
+      this.change.emit({ failed, error, items });
+    }
   }
 
   isCategoryInOrder(categoryId: number): boolean {

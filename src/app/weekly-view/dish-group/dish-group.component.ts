@@ -71,10 +71,8 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
    * set accessor value
    */
   set value(v: number) {
-    if (v !== this.innerValue) {
-      this.innerValue = v;
-      this.onChangeCallback(v);
-    }
+    this.innerValue = v;
+    this.onChangeCallback(v);
   }
 
   constructor() { }
@@ -87,14 +85,19 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
   }
 
   onItemSelect(item: IDish) {
-    this.value = item.id;
-    this.change.emit(item);
+    // Uncheck item if the same item was selected
+    const uncheck = this.value === item.id;
+
+    this.value = uncheck ? null : item.id;
+    this.change.emit(uncheck ? null : item);
   }
 
   // From ControlValueAccessor interface
   writeValue(value: any) {
     if (value !== this.innerValue) {
       this.innerValue = value;
+    } else {
+      this.innerValue = null;
     }
   }
 
