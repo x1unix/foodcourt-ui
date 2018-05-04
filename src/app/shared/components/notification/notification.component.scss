@@ -1,0 +1,20 @@
+$alert-max-height: 300px;
+
+:host {
+  display: block;
+  transition: all 1s ease 0s;
+}
+
+@keyframes notification-appear {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: $alert-max-height;
+  }
+}
+
+.notificaion__alert {
+  animation: notification-appear 0.5s ease-out 0s;
+}

@@ -1,0 +1,35 @@
+<div class="day-column">
+  <div class="day-column__header" [ngClass]="{'text-danger': highlight}">
+    <div class="day-column__header__content">
+      <div class="day-column__title">
+        <span class="day-column__date">
+          {{dayOfMonth}}
+        </span>
+        <span class="day-column__month">
+          {{month}}
+        </span>
+      </div>
+      <span class="day-column__day">
+        {{dayOfWeek}}
+      </span>
+    </div>
+  </div>
+  <div class="day-column__content">
+    <ng-container *ngIf="hasDishes">
+      <app-dish-group
+        *ngFor="let group of groups"
+        [name]="group.key"
+        [label]="group.tag"
+        [dishes]="group.value"
+        [highlight]="errorGroup == group.key"
+        [(ngModel)]="orderedItems[group.key]"
+        (change)="onDishSelect(group.key, $event)"
+        [disabled]="disabled"
+      >
+       </app-dish-group>
+    </ng-container>
+  </div>
+  <div *ngIf="!hasDishes" class="day-column__empty-msg">
+    No items
+  </div>
+</div>

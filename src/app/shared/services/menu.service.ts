@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {IDish, DISH_TYPES, DISH_TYPE_COLORS, DishType} from '../interfaces/dish';
 
@@ -45,6 +45,17 @@ export class MenuService {
   }
 
   /**
+   * Get menu for selected period.
+   *
+   * @param {string} startDate Start date in format YYYYMMDD
+   * @param {string} endDate End date in format YYYYMMDD
+   */
+  getDishesForPeriod(startDate: string, endDate: string) {
+    const params = new HttpParams().set('from', startDate).set('till', endDate);
+    return this.http.get('/api/menu/period/dishes', { params }).toPromise();
+  }
+
+  /**
    * Set a list of dishes as a menu for specific date
    * @param {string} date Date (format: YYYYMMDD)
    * @param {number[]} dishesIds List of dishes IDs
@@ -69,6 +80,21 @@ export class MenuService {
    */
   getMenuStatus(date: string) {
     return this.http.get(`/api/menu/${date}/status`);
+  }
+
+  /**
+   * Returns status for each menu for specified days
+   * @param dates Array of dates (format: YYYYMMDD)
+   */
+  getBulkMenuStatus(dates: string[]): Promise<{[date: string]: boolean}> {
+    let params = new HttpParams();
+
+    // Append date to query param
+    dates.forEach(date => {
+      params = params.append('dates[]', date);
+    });
+
+    return <Promise<{ [date: string]: boolean }>> this.http.get('/api/menu/status', { params }).toPromise();
   }
 
 }

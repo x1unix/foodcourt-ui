@@ -43,6 +43,11 @@ export class AlertComponent implements OnInit {
   @Input() actionText = 'Action';
 
   /**
+   * Additional styles
+   */
+  @Input() styles = {};
+
+  /**
    * Action button click event
    * @type {EventEmitter<any>}
    */

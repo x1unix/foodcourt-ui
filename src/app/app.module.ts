@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import {ReportsModule} from './reports/reports.module';
+import {WeeklyViewModule} from './weekly-view/weekly-view.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ReportsModule} from './reports/reports.module';
     SharedModule,
     AppRoutingModule,
     ManagementModule,
-    ReportsModule
+    ReportsModule,
+    WeeklyViewModule
   ],
   providers: [],
   bootstrap: [AppComponent]

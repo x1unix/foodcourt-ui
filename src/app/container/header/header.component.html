@@ -17,6 +17,16 @@
       <clr-icon shape="shopping-cart" class="v-xs-show"></clr-icon>
     </a>
     <a
+      routerLink="/calendar"
+      routerLinkActive="active"
+      class="nav-link nav-text"
+    >
+      <span class="v-xs-hide">
+        Calendar
+      </span>
+      <clr-icon shape="calendar" class="v-xs-show"></clr-icon>
+    </a>
+    <a
       *ngIf="isAdmin"
       routerLink="/management"
       routerLinkActive="active"

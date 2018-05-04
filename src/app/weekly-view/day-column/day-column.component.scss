@@ -1,0 +1,90 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.day-column {
+  border-left: 1px solid #ccc;
+  padding: 10px;
+  padding-bottom: 86px;
+  position: relative;
+}
+
+.day-column__date {
+  font-size: 24pt;
+}
+
+.day-column__month {
+  font-size: 9pt;
+  position: relative;
+  right: 4px;
+  bottom: 1px
+}
+
+// No items message
+.day-column__empty-msg {
+  font-weight: bold;
+  text-align: center;
+}
+
+// Desktop-only styles
+@media (min-width: 768px) {
+  .day-column {
+    min-height: 100%;
+  }
+
+  .day-column__empty-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// Mobile styles
+@media (max-width: 768px) {
+  .day-column__title {
+    display: inline;
+  }
+
+  .day-column__empty-msg {
+    padding: 48px 0;
+  }
+
+  .day-column__header {
+    margin-top: 12px;
+    text-align: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      height: 1px;
+      background: #ccc;
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .day-column__header__content {
+    background: #fafafa;
+    display: inline;
+    z-index: 1;
+    position: relative;
+    padding: 0 10px;
+  }
+
+  .day-column {
+    padding-bottom: 15px;
+  }
+
+  .day-column__date,
+  .day-column__month,
+  .day-column__day {
+    font-size: 16pt;
+    padding-top: 16px;
+    position: static;
+  }
+}

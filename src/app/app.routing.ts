@@ -14,6 +14,7 @@ import {UsersManagerComponent} from './management/users-manager/users-manager.co
 import {SettingsComponent} from './management/settings/settings.component';
 import {ProfileEditorComponent} from './auth/profile-editor/profile-editor.component';
 import {ReportsComponent} from './reports/reports.component';
+import {WeeklyViewComponent} from './weekly-view/weekly-view.component';
 
 
 const APP_ROUTES: Routes = [
@@ -98,6 +99,11 @@ const APP_ROUTES: Routes = [
         path: 'reports',
         component: ReportsComponent,
         canActivate: [AdminGuard]
+      },
+      {
+        path: 'calendar',
+        component: WeeklyViewComponent,
+        canActivate: [LoggedInGuard]
       }
       // {
       //   path: '**',

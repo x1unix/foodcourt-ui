@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.weekly-view__column {
+  width: 20%;
+}
+
+// Mobile styles
+@media(max-width: 768px) {
+  :host {
+    flex-direction: column;
+  }
+
+  .weekly-view__column {
+    width: 100%;
+  }
+
+  .weekly-view__column:last-child {
+    margin-bottom: 32px;
+  }
+}

@@ -1,0 +1,34 @@
+<ng-container *ngIf="!destroyed">
+  <ng-container *ngIf="isLoaded">
+    <app-day-column
+      class="weekly-view__column"
+      *ngFor="let date of dates"
+      [dishes]="getMenuForDate(date)"
+      [date]="date"
+      [orders]="getDayOrders(date)"
+      (change)="onOrderChange(date, $event)"
+      [disabled]="saveStatus.isLoading || isMenuLocked(date)"
+      [highlight]="date === today"
+    >
+    </app-day-column>
+  </ng-container>
+  <app-view-footer
+    class="weekly-view__footer"
+    [showSaveButton]="dirty && !formHasError"
+    [showError]="formHasError"
+    [errorMessage]="lastFormError"
+    [busy]="isLoading || saveStatus.isLoading"
+    (navigate)="onNavigate($event)"
+    (save)="onSave()"
+  >
+  </app-view-footer>
+
+  <!-- preloader -->
+  <app-spinner *ngIf="isLoading" style="height: 100%"></app-spinner>
+
+  <!-- retry message -->
+  <app-poster *ngIf="isFailed" class="poster--error" icon="bug" label="Failed to get order information">
+    <code class="poster__error">{{error}}</code>
+    <a href="#">Try again</a>
+  </app-poster>
+</ng-container>

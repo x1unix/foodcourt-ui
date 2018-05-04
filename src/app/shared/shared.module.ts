@@ -10,7 +10,9 @@ import { RouterModule } from '@angular/router';
 import { NgSlimScrollModule } from 'ngx-slimscroll';
 
 import {
+  NotificationsService,
   LocalStorageService,
+  EnvironmentService,
   LoggerService,
   SessionsService,
   AuthService,
@@ -31,6 +33,9 @@ import { HeaderToolbarComponent } from './components/header-toolbar/header-toolb
 import { AlertComponent } from './components/alert/alert.component';
 import { PosterComponent } from './components/poster/poster.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { NotificationComponent } from './components/notification/notification.component';
+
+
 /**
  * Module provides access to common app parts and services
  *
@@ -57,10 +62,13 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     HeaderToolbarComponent,
     AlertComponent,
     PosterComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    NotificationComponent
   ],
   providers: [
+    NotificationsService,
     LocalStorageService,
+    EnvironmentService,
     LoggerService,
     SessionsService,
     LoggedInGuard,
@@ -80,6 +88,7 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     CUSTOM_ELEMENTS_SCHEMA
   ],
   exports: [
+    NotificationComponent,
     FoodCardComponent,
     RetryAlertComponent,
     RatingComponent,
@@ -89,10 +98,6 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     PosterComponent,
     DatepickerComponent,
     NgSlimScrollModule
-    // ...FORM_DIRECTIVES,
-    // ...COMPONENTS,
-    // ...DIRECTIVES,
-    // ...PIPES
   ]
 })
 export class SharedModule { }
