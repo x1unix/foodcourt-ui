@@ -7,6 +7,7 @@
   border-left: 1px solid #ccc;
   padding: 10px;
   padding-bottom: 86px;
+  position: relative;
 }
 
 .day-column__date {
@@ -20,10 +21,34 @@
   bottom: 1px
 }
 
+// No items message
+.day-column__empty-msg {
+  font-weight: bold;
+  text-align: center;
+}
+
+// Desktop-only styles
+@media (min-width: 768px) {
+  .day-column {
+    min-height: 100%;
+  }
+
+  .day-column__empty-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 // Mobile styles
 @media (max-width: 768px) {
   .day-column__title {
     display: inline;
+  }
+
+  .day-column__empty-msg {
+    padding: 48px 0;
   }
 
   .day-column__header {
