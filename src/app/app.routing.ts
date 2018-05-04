@@ -101,7 +101,7 @@ const APP_ROUTES: Routes = [
         canActivate: [AdminGuard]
       },
       {
-        path: 'orders/weekly',
+        path: 'calendar',
         component: WeeklyViewComponent,
         canActivate: [LoggedInGuard]
       }
