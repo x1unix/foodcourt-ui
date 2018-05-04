@@ -45,6 +45,11 @@ export class DayColumnComponent implements OnInit {
    */
   @Output() change = new EventEmitter<DayColumnEvent>();
 
+  /**
+   * Is component disabled
+   */
+  @Input() disabled = false;
+
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
     this.orderedItems = [];

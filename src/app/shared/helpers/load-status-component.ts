@@ -16,4 +16,9 @@
  */
 import {ResourceStatus} from './resource-status';
 
-export abstract class LoadStatusComponent extends ResourceStatus {}
+export abstract class LoadStatusComponent extends ResourceStatus {
+  /**
+   * Is component destroyed
+   */
+  destroyed = false;
+}

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { isArray, isNil } from 'lodash';
-import { LoadStatusComponent } from '../shared/helpers';
+import { LoadStatusComponent, ResourceStatus } from '../shared/helpers';
 import { MenuService, WebHelperService, SessionsService, OrdersService } from '../shared/services';
 import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
 import { DayColumnEvent } from './day-column/day-column-event';
+import { NavigationDirection } from './view-footer/navigation-direction';
 
 /**
  * Weekly view page
@@ -15,7 +16,7 @@ import { DayColumnEvent } from './day-column/day-column-event';
   templateUrl: './weekly-view.component.html',
   styleUrls: ['./weekly-view.component.scss']
 })
-export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
+export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, OnDestroy {
 
   private readonly FC_DATE_FORMAT = 'YYYYMMDD';
 
@@ -24,6 +25,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   private readonly DAY_SATURDAY = 6;
 
   private readonly DAYS_TOTAL = 7;
+
+  /**
+   * Order save status
+   */
+  saveStatus = new ResourceStatus();
 
   /**
    * Array of dates
@@ -134,6 +140,28 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   }
 
   /**
+   * Weekly view navigation event handler
+   * @param direction Navigation direction
+   */
+  onNavigate(direction: NavigationDirection) {
+    const tempDate = this.startDate.clone();
+    this.isLoading = true;
+
+    switch (direction) {
+      case NavigationDirection.Forward:
+        this.date = tempDate.add(1, 'w');
+        break;
+      case NavigationDirection.Backward:
+        this.date = tempDate.subtract(1, 'w');
+        break;
+      default:
+        return;
+    }
+
+    this.fetchData();
+  }
+
+  /**
    * Day order change event handler
    * @param date Date (YYYYMMDD)
    * @param ids List of new item ids
@@ -178,6 +206,30 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
   }
 
   /**
+   * Reset component state
+   * @param dispose Dispose component
+   *
+   */
+  private reset(dispose = false) {
+    this.ordered = null;
+    this.dirty = false;
+    this.lastFormError = null;
+    this.formHasError = false;
+    this.menus = null;
+    this.formErrors.clear();
+
+    if (dispose) {
+      // Prepare component for destroy
+      this.destroyed = true;
+
+      // Null properties
+      this.startDate = null;
+      this.period = null;
+      this.formErrors = null;
+    }
+  }
+
+  /**
    * Returns menu for specified date
    * @param date Date in format YYYYMMDD
    */
@@ -203,11 +255,15 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
    * Fetch data from the server
    */
   async fetchData() {
-    this.dirty = false;
+    // Reset component state
+    this.reset();
+
+    // Set loading state
+    this.isLoading = true;
+
+    // Set week range
     const start = this.period[0];
     const end = this.period[1];
-    this.isLoading = true;
-    this.ordered = null;
 
     try {
       // Fetch menus
@@ -223,6 +279,10 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit {
       this.error = this.helper.extractResponseError(err);
       this.isFailed = true;
     }
+  }
+
+  ngOnDestroy() {
+    this.reset(true);
   }
 
 }

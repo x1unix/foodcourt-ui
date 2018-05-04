@@ -24,6 +24,7 @@
         [highlight]="errorGroup == group.key"
         [(ngModel)]="orderedItems[group.key]"
         (change)="onDishSelect(group.key, $event)"
+        [disabled]="disabled"
       >
        </app-dish-group>
     </ng-container>

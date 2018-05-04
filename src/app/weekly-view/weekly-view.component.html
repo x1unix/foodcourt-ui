@@ -1,33 +1,32 @@
-<ng-container *ngIf="isLoaded">
-  <app-day-column
-    class="weekly-view__column"
-    *ngFor="let date of dates"
-    [dishes]="getMenuForDate(date)"
-    [date]="date"
-    [orders]="getDayOrders(date)"
-    (change)="onOrderChange(date, $event)"
-  >
-  </app-day-column>
+<ng-container *ngIf="!destroyed">
+  <ng-container *ngIf="isLoaded">
+    <app-day-column
+      class="weekly-view__column"
+      *ngFor="let date of dates"
+      [dishes]="getMenuForDate(date)"
+      [date]="date"
+      [orders]="getDayOrders(date)"
+      (change)="onOrderChange(date, $event)"
+      [disabled]="saveStatus.isLoading"
+    >
+    </app-day-column>
 
-  <app-view-footer
-    class="weekly-view__footer"
-    [showSaveButton]="dirty && !formHasError"
-    [showError]="formHasError"
-    [errorMessage]="lastFormError"
-  >
-  </app-view-footer>
+    <app-view-footer
+      class="weekly-view__footer"
+      [showSaveButton]="dirty && !formHasError"
+      [showError]="formHasError"
+      [errorMessage]="lastFormError"
+      [busy]="saveStatus.isLoading"
+    >
+    </app-view-footer>
+  </ng-container>
+
+  <!-- preloader -->
+  <app-spinner *ngIf="isLoading" style="height: 100%"></app-spinner>
+
+  <!-- retry message -->
+  <app-poster *ngIf="isFailed" class="poster--error" icon="bug" label="Failed to get order information">
+    <code class="poster__error">{{error}}</code>
+    <a href="#">Try again</a>
+  </app-poster>
 </ng-container>
-
-<!-- preloader -->
-<app-spinner *ngIf="isLoading" style="height: 100%"></app-spinner>
-
-<!-- retry message -->
-<app-poster
-  *ngIf="isFailed"
-  class="poster--error"
-  icon="bug"
-  label="Failed to get order information"
->
-  <code class="poster__error">{{error}}</code>
-  <a href="#">Try again</a>
-</app-poster>

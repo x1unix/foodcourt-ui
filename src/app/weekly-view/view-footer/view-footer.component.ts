@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NavigationEnd } from '@angular/router';
 import { isString } from 'lodash';
+import { NavigationDirection } from './navigation-direction';
 
 @Component({
   selector: 'app-view-footer',
@@ -20,9 +22,18 @@ export class ViewFooterComponent implements OnInit {
 
   @Output() save = new EventEmitter();
 
+  @Output() navigate = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  forward() {
+    this.navigate.emit(NavigationDirection.Forward);
+  }
+
+  backward() {
+    this.navigate.emit(NavigationDirection.Backward);
+  }
 }
