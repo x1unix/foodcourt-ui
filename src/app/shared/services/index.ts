@@ -1,5 +1,6 @@
 export * from './local-storage.service';
 export * from './notifications.service';
+export * from './environment.service';
 export * from './web-helper.service';
 export * from './sessions.service';
 export * from './orders.service';

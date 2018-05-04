@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter} from '@angular/core';
 import {IUser} from '../../shared/interfaces/user';
+import { EnvironmentService } from '../../shared/services';
 
 @Component({
   selector: 'app-header',
@@ -21,15 +22,16 @@ export class HeaderComponent implements OnInit {
    */
   @Output() logout = new EventEmitter();
 
-  title = 'Limelight FoodCourt';
+  title = 'FoodCourt';
 
   get isAdmin() {
     return this.user.level === 0;
   }
 
-  constructor() { }
+  constructor(private env: EnvironmentService) { }
 
   ngOnInit() {
+    this.title = this.env.getFullProductName();
   }
 
   onLogoutClick(event: Event) {

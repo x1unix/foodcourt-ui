@@ -4,7 +4,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 
 import { isNil } from 'lodash';
 
-import {AuthService, SessionsService, WebHelperService} from '../shared/services';
+import {AuthService, SessionsService, WebHelperService, EnvironmentService} from '../shared/services';
 import {LoadStatusComponent} from '../shared/helpers';
 import {IAuthCredentials} from '../shared/interfaces/auth-credentials';
 import {IAuthSession} from '../shared/interfaces/auth-session';
@@ -18,7 +18,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class AuthComponent extends LoadStatusComponent implements OnInit, OnDestroy {
 
-  title = 'Limelight FoodCourt';
+  title = 'FoodCourt';
 
   sessionExpired = false;
 
@@ -32,11 +32,14 @@ export class AuthComponent extends LoadStatusComponent implements OnInit, OnDest
     private hlp: WebHelperService,
     private router: Router,
     private route: ActivatedRoute,
+    private env: EnvironmentService
   ) {
     super();
   }
 
   ngOnInit() {
+    this.title = this.env.getFullProductName();
+
     // Redirect if logged in
     if (this.session.isAuthorized) {
       this.router.navigate(['/']);
