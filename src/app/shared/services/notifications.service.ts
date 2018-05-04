@@ -43,7 +43,7 @@ export class NotificationsService {
    * @param type Notification type
    * @param timeout Notification timeout
    */
-  push(message: string, type: NotificationType = NotificationType.Info, timeout = 1500) {
+  push(message: string, type: NotificationType = NotificationType.Info, timeout = 3000) {
     this.messages.next({message, type, timeout});
   }
 }

@@ -28,7 +28,7 @@ export class NotificationComponent implements OnInit {
       const idx = this.notifications.push(notification);
 
       // Self-destroy timeout
-      setTimeout(() => this.remove(idx), notification.timeout);
+      setTimeout(() => this.remove(idx - 1), notification.timeout);
     });
   }
 
