@@ -207,7 +207,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
       .filter(key => this.dirtyDates.includes(key))
       .forEach(key => orderBundle[key] = [...this.ordered[key]]);
 
-
+    // Perform request
     this.orders.setUserOrderForPeriod(this.userId, orderBundle)
       .then(_ => {
         this.notifications.push('Changes saved successfully', NotificationType.Success);
@@ -215,8 +215,13 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
         this.dirty = false;
         this.dirtyDates.length = 0;
       }).catch(err => {
-        this.error = this.helper.extractResponseError(err);
-        this.isFailed = true;
+        this.saveStatus.error = this.helper.extractResponseError(err);
+        this.saveStatus.isFailed = true;
+        this.notifications.push(
+          `Failed to save the order: ${this.saveStatus.error}`,
+          NotificationType.Danger,
+          8000
+        );
       });
   }
 
