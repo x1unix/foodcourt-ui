@@ -11,10 +11,19 @@
   </div>
   <div class="view-footer__contents">
     <ng-container *ngIf="showSaveButton">
-      <button *ngIf="!busy" class="btn btn-primary view-footer__btn--submit">
+      <button
+        *ngIf="!busy"
+        class="btn btn-primary view-footer__btn--submit"
+        (click)="save.emit()"
+      >
         Save changes
       </button>
-      <button *ngIf="busy" class="btn btn-link" [clrLoading]="true">
+      <button
+        *ngIf="busy"
+        class="btn btn-link"
+        [clrLoading]="true"
+        style="cursor: default"
+      >
         Saving changes...
       </button>
     </ng-container>

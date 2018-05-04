@@ -174,6 +174,14 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     this.fetchData();
   }
 
+  onSave() {
+    if (this.formHasError) {
+      return;
+    }
+
+    this.saveStatus.isLoading = true;
+  }
+
   /**
    * Day order change event handler
    * @param date Date (YYYYMMDD)

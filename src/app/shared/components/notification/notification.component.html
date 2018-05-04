@@ -1,0 +1,15 @@
+<div
+  *ngFor="let notification of notifications"
+  class="notificaion__alert alert alert-app-level {{notification.type}}"
+>
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" [attr.shape]="getNotificationIcon(notification.type)"></clr-icon>
+      </div>
+      <div class="alert-text">
+        {{notification.message}}
+      </div>
+    </div>
+  </div>
+</div>
