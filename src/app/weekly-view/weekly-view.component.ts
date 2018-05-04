@@ -57,6 +57,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
   formHasError = false;
 
   /**
+   * Current date (in FC format)
+   */
+  today = '';
+
+  /**
    * Selected start date
    */
   private startDate: moment.Moment;
@@ -134,6 +139,9 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
   }
 
   ngOnInit() {
+    // Set today's date
+    this.today = moment().format(this.FC_DATE_FORMAT);
+
     // Determine start day
     this.date = this.determineStartDay();
     this.fetchData();

@@ -50,6 +50,14 @@ export class DayColumnComponent implements OnInit {
    */
   @Input() disabled = false;
 
+  /**
+   * Highlight column's date
+   */
+  @Input() highlight = false;
+
+  /**
+   * Set list of dishes
+   */
   @Input() set dishes(dishes: IDish[]) {
     this.hasDishes = dishes.length > 0;
     this.orderedItems = [];

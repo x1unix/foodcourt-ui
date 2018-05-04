@@ -8,6 +8,7 @@
       [orders]="getDayOrders(date)"
       (change)="onOrderChange(date, $event)"
       [disabled]="saveStatus.isLoading"
+      [highlight]="date === today"
     >
     </app-day-column>
   </ng-container>
