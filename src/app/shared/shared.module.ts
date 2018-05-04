@@ -98,10 +98,6 @@ import { NotificationComponent } from './components/notification/notification.co
     PosterComponent,
     DatepickerComponent,
     NgSlimScrollModule
-    // ...FORM_DIRECTIVES,
-    // ...COMPONENTS,
-    // ...DIRECTIVES,
-    // ...PIPES
   ]
 })
 export class SharedModule { }
