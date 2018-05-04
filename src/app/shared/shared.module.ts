@@ -12,6 +12,7 @@ import { NgSlimScrollModule } from 'ngx-slimscroll';
 import {
   NotificationsService,
   LocalStorageService,
+  EnvironmentService,
   LoggerService,
   SessionsService,
   AuthService,
@@ -67,6 +68,7 @@ import { NotificationComponent } from './components/notification/notification.co
   providers: [
     NotificationsService,
     LocalStorageService,
+    EnvironmentService,
     LoggerService,
     SessionsService,
     LoggedInGuard,
