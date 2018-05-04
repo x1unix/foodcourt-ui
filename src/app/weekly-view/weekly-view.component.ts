@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { isArray, isNil } from 'lodash';
 import { LoadStatusComponent, ResourceStatus } from '../shared/helpers';
-import { MenuService, WebHelperService, SessionsService, OrdersService } from '../shared/services';
+import { MenuService, WebHelperService, SessionsService, OrdersService, NotificationsService, NotificationType } from '../shared/services';
 import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
 import { DayColumnEvent } from './day-column/day-column-event';
@@ -113,7 +113,8 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     private menu: MenuService,
     private orders: OrdersService,
     private session: SessionsService,
-    private helper: WebHelperService
+    private helper: WebHelperService,
+    private notifications: NotificationsService
   ) {
     super();
   }
@@ -180,6 +181,13 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     }
 
     this.saveStatus.isLoading = true;
+
+    // FIXME: Put real API call for saving orders
+    setTimeout(() => {
+      this.notifications.push('Changes saved successfully', NotificationType.Success);
+      this.saveStatus.isLoaded = true;
+      this.dirty = false;
+    }, 3000);
   }
 
   /**
