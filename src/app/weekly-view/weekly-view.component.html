@@ -10,16 +10,16 @@
       [disabled]="saveStatus.isLoading"
     >
     </app-day-column>
-
-    <app-view-footer
-      class="weekly-view__footer"
-      [showSaveButton]="dirty && !formHasError"
-      [showError]="formHasError"
-      [errorMessage]="lastFormError"
-      [busy]="saveStatus.isLoading"
-    >
-    </app-view-footer>
   </ng-container>
+  <app-view-footer
+    class="weekly-view__footer"
+    [showSaveButton]="dirty && !formHasError"
+    [showError]="formHasError"
+    [errorMessage]="lastFormError"
+    [busy]="isLoading || saveStatus.isLoading"
+    (navigate)="onNavigate($event)"
+  >
+  </app-view-footer>
 
   <!-- preloader -->
   <app-spinner *ngIf="isLoading" style="height: 100%"></app-spinner>
