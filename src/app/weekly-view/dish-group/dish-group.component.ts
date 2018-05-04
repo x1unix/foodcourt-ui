@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { IDish } from '../../shared/interfaces/dish';
+import { isEmpty } from 'lodash';
+import { PopupDirection } from './pop-direction';
 
 const noop = () => {};
 
@@ -37,6 +39,11 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
    * Highlight control
    */
   @Input() highlight = false;
+
+  /**
+   * Pop-up direction
+   */
+  @Input() popUpDirection: PopupDirection = PopupDirection.Right;
 
   /**
    * Is control disabled
@@ -117,6 +124,10 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
    */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  getPopUpText(item: IDish) {
+    return isEmpty(item.description) ? item.label : `${item.label} (${item.description})`;
   }
 
 }

@@ -2,13 +2,14 @@
   <ng-container *ngIf="isLoaded">
     <app-day-column
       class="weekly-view__column"
-      *ngFor="let date of dates"
+      *ngFor="let date of dates; let i = index"
       [dishes]="getMenuForDate(date)"
       [date]="date"
       [orders]="getDayOrders(date)"
       (change)="onOrderChange(date, $event)"
       [disabled]="saveStatus.isLoading || isMenuLocked(date)"
       [highlight]="date === today"
+      [popUpDir]="getPopUpPosition(i)"
     >
     </app-day-column>
   </ng-container>

@@ -6,6 +6,7 @@ import { IKeyValuePair } from '../../shared/interfaces/key-value-pair';
 import { groupBy, find, isNil, compact } from 'lodash';
 import { DishesService } from '../../management/services/dishes.service';
 import { DayColumnEvent } from './day-column-event';
+import { PopupDirection } from '../dish-group/pop-direction';
 
 /**
  * A column with daily menu for one day.
@@ -54,6 +55,11 @@ export class DayColumnComponent implements OnInit {
    * Highlight column's date
    */
   @Input() highlight = false;
+
+  /**
+   * Pop up label position
+   */
+  @Input() popUpDir: PopupDirection = PopupDirection.Right;
 
   /**
    * Set list of dishes

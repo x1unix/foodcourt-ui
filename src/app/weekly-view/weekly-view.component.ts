@@ -7,6 +7,7 @@ import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
 import { DayColumnEvent } from './day-column/day-column-event';
 import { NavigationDirection } from './view-footer/navigation-direction';
+import { PopupDirection } from './dish-group/pop-direction';
 
 /**
  * Weekly view page
@@ -254,6 +255,12 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     }
 
     this.updateErrorMessage(!event.failed);
+  }
+
+  getPopUpPosition(menuIdx: number): PopupDirection {
+    const max = this.dates.length - 3;
+
+    return menuIdx >= max ? PopupDirection.Left : PopupDirection.Right;
   }
 
   /**

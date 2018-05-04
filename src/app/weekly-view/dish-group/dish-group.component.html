@@ -3,14 +3,25 @@
     {{label}}
   </div>
   <div class="card-block dish-group__list">
-    <button
-      *ngFor="let dish of dishes"
-      class="btn btn-block dish-group__selector btn-sm"
-      [ngClass]="{'btn-success': dish.id === value, 'btn-link': dish.id !== value}"
-      (click)="onItemSelect(dish)"
-      [disabled]="disabled"
-    >
-      <clr-icon shape="caret" dir="right" class="dish-group__before"></clr-icon> {{dish.label}}
-  </button>
+    <div class="dish-group__item" *ngFor="let dish of dishes">
+      <button
+        class="btn btn-block dish-group__selector btn-sm"
+        [ngClass]="{'btn-success': dish.id === value, 'btn-link': dish.id !== value}"
+        (click)="onItemSelect(dish)"
+        [disabled]="disabled"
+      >
+        <clr-icon shape="caret" dir="right" class="dish-group__before"></clr-icon>
+        <span>
+          {{dish.label}}
+        </span>
+      </button>
+      <span class="dish-group__pop-up {{popUpDirection}}">
+        <span class="dish-group__pop-up__content">
+          <span class="dish-group__pop-up__block">
+            {{getPopUpText(dish)}}
+          </span>
+        </span>
+      </span>
+    </div>
   </div>
 </div>

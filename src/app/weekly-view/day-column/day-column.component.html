@@ -25,6 +25,7 @@
         [(ngModel)]="orderedItems[group.key]"
         (change)="onDishSelect(group.key, $event)"
         [disabled]="disabled"
+        [popUpDirection]="popUpDir"
       >
        </app-dish-group>
     </ng-container>
