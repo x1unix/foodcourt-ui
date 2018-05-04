@@ -35,6 +35,15 @@ export class OrdersService {
   }
 
   /**
+   * Commit order for period
+   * @param userId User ID
+   * @param orders Map with order date and ordered dishes
+   */
+  setUserOrderForPeriod(userId: number, orders: {[date: string]: number[]}) {
+    return this.http.post(`/api/orders/users/${userId}`, orders).toPromise();
+  }
+
+  /**
    * Delete order for specific user at specific date
    * @param {string} date Date (YYYYMMDD)
    * @param {number} userId User ID

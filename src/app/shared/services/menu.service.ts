@@ -82,4 +82,19 @@ export class MenuService {
     return this.http.get(`/api/menu/${date}/status`);
   }
 
+  /**
+   * Returns status for each menu for specified days
+   * @param dates Array of dates (format: YYYYMMDD)
+   */
+  getBulkMenuStatus(dates: string[]): Promise<{[date: string]: boolean}> {
+    let params = new HttpParams();
+
+    // Append date to query param
+    dates.forEach(date => {
+      params = params.append('dates[]', date);
+    });
+
+    return <Promise<{ [date: string]: boolean }>> this.http.get('/api/menu/status', { params }).toPromise();
+  }
+
 }

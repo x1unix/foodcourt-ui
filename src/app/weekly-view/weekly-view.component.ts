@@ -62,6 +62,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
   today = '';
 
   /**
+   * Lock status information
+   */
+  private lockStatus: {[date: string]: boolean} = {};
+
+  /**
    * Selected start date
    */
   private startDate: moment.Moment;
@@ -217,6 +222,14 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
   }
 
   /**
+   * That might be obvious
+   * @param date FC Date
+   */
+  isMenuLocked(date: string): boolean {
+    return this.lockStatus[date] || false;
+  }
+
+  /**
    * Updates form error message state
    * @param popPreviousError Print previous error
    */
@@ -245,6 +258,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     this.lastFormError = null;
     this.formHasError = false;
     this.menus = null;
+    this.lockStatus = {};
     this.formErrors.clear();
 
     if (dispose) {
@@ -255,6 +269,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
       this.startDate = null;
       this.period = null;
       this.formErrors = null;
+      this.lockStatus = null;
     }
   }
 
@@ -299,8 +314,14 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
       const menus = await this.menu.getDishesForPeriod(start, end);
       this.menus = <MenuSet> menus;
 
+      // Current user ID
       const userId = this.session.currentUser.id;
+
+      // Fetch user's orders
       this.ordered = await this.orders.getUserOrdersForPeriod(userId, start, end);
+
+      // Get menu lock status
+      this.lockStatus = await this.menu.getBulkMenuStatus(this.dates);
 
       // Set UI state
       this.isLoaded = true;

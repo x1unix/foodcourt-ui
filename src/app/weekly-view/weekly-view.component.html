@@ -7,7 +7,7 @@
       [date]="date"
       [orders]="getDayOrders(date)"
       (change)="onOrderChange(date, $event)"
-      [disabled]="saveStatus.isLoading"
+      [disabled]="saveStatus.isLoading || isMenuLocked(date)"
       [highlight]="date === today"
     >
     </app-day-column>
