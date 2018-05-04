@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { isArray, isNil } from 'lodash';
-import { LoadStatusComponent, ResourceStatus } from '../shared/helpers';
+import { LoadStatusComponent, ResourceStatus, ObjectDiffer } from '../shared/helpers';
 import { MenuService, WebHelperService, SessionsService, OrdersService, NotificationsService, NotificationType } from '../shared/services';
 import { IDish, MenuSet } from '../shared/interfaces/dish';
 import { IKeyValuePair } from '../shared/interfaces/key-value-pair';
@@ -60,6 +60,16 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
    * Current date (in FC format)
    */
   today = '';
+
+  /**
+   * Order owner ID
+   */
+  private userId: number;
+
+  /**
+   * List of dates with changed orders
+   */
+  private dirtyDates: string[] = [];
 
   /**
    * Lock status information
@@ -148,6 +158,8 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     // Set today's date
     this.today = moment().format(this.FC_DATE_FORMAT);
 
+    this.userId = this.session.currentUser.id;
+
     // Determine start day
     this.date = this.determineStartDay();
     this.fetchData();
@@ -187,12 +199,25 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
 
     this.saveStatus.isLoading = true;
 
-    // FIXME: Put real API call for saving orders
-    setTimeout(() => {
-      this.notifications.push('Changes saved successfully', NotificationType.Success);
-      this.saveStatus.isLoaded = true;
-      this.dirty = false;
-    }, 3000);
+    // Prepare list only changed orders
+    const orderBundle: {[date: string]: number[]} = {};
+
+    // Fill request payload with only changed orders
+    Object.keys(this.ordered)
+      .filter(key => this.dirtyDates.includes(key))
+      .forEach(key => orderBundle[key] = [...this.ordered[key]]);
+
+
+    this.orders.setUserOrderForPeriod(this.userId, orderBundle)
+      .then(_ => {
+        this.notifications.push('Changes saved successfully', NotificationType.Success);
+        this.saveStatus.isLoaded = true;
+        this.dirty = false;
+        this.dirtyDates.length = 0;
+      }).catch(err => {
+        this.error = this.helper.extractResponseError(err);
+        this.isFailed = true;
+      });
   }
 
   /**
@@ -206,6 +231,11 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
 
     // Put result
     this.ordered[date] = event.items;
+
+    if (!this.dirtyDates.includes(date)) {
+      // Add changed date to the list of affected dates
+      this.dirtyDates.push(date);
+    }
 
     if (event.failed) {
       // Put errors to the stack if have some
@@ -258,6 +288,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
     this.lastFormError = null;
     this.formHasError = false;
     this.menus = null;
+    this.dirtyDates = [];
     this.lockStatus = {};
     this.formErrors.clear();
 
@@ -270,6 +301,7 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
       this.period = null;
       this.formErrors = null;
       this.lockStatus = null;
+      this.dirtyDates = null;
     }
   }
 
@@ -314,11 +346,8 @@ export class WeeklyViewComponent extends LoadStatusComponent implements OnInit, 
       const menus = await this.menu.getDishesForPeriod(start, end);
       this.menus = <MenuSet> menus;
 
-      // Current user ID
-      const userId = this.session.currentUser.id;
-
       // Fetch user's orders
-      this.ordered = await this.orders.getUserOrdersForPeriod(userId, start, end);
+      this.ordered = await this.orders.getUserOrdersForPeriod(this.userId, start, end);
 
       // Get menu lock status
       this.lockStatus = await this.menu.getBulkMenuStatus(this.dates);
