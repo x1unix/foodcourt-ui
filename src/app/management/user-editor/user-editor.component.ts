@@ -60,13 +60,13 @@ export class UserEditorComponent extends LoadStatusComponent implements OnInit {
         firstName: new FormControl(this.user.firstName),
         lastName: new FormControl(this.user.lastName),
         email: new FormControl(this.user.email, Validators.email),
-        password: new FormControl('')
-        // level: new FormControl(this.user.level)
+        password: new FormControl(''),
+        level: new FormControl(this.user.level)
       });
 
-      // if (this.userId === this.currentUserId) {
-      //   this.userForm.get('level').disable({onlySelf: false, emitEvent: false});
-      // }
+      if (this.userId === this.currentUserId) {
+        this.userForm.get('level').disable({onlySelf: false, emitEvent: false});
+      }
 
     } else {
       this.userForm = new FormGroup({
@@ -134,8 +134,6 @@ export class UserEditorComponent extends LoadStatusComponent implements OnInit {
 
   onSubmit() {
     const data = this.userExists ? this.getFormChanges() : this.userForm.value;
-    const req = this.userExists ? this.users.updateUser(this.userId, data) : this.users.addUser(data);
-
 
     // Workaround to pass only numbers as user level
     data.level = Number(data.level);
@@ -149,6 +147,8 @@ export class UserEditorComponent extends LoadStatusComponent implements OnInit {
       this.error = 'The form is empty';
       return;
     }
+
+    const req = this.userExists ? this.users.updateUser(this.userId, data) : this.users.addUser(data);
 
     this.isLoading = true;
     this.setFormState(false);

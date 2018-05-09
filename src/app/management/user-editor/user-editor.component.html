@@ -11,6 +11,7 @@
   class="form"
   [formGroup]="userForm"
   (ngSubmit)="onSubmit()"
+  autocomplete="off"
 >
 
   <section class="form-block">
@@ -72,6 +73,7 @@
           type="email"
           maxlength="64"
           formControlName="email"
+          autocomplete="off"
         >
         <span class="tooltip-content">
           Email is required.
@@ -95,6 +97,7 @@
           type="password"
           maxlength="64"
           formControlName="password"
+          autocomplete="off"
         >
         <span class="tooltip-content">
           Password is required.
@@ -102,7 +105,7 @@
       </label>
     </div>
 
-    <div class="form-group" *ngIf="!userExists">
+    <div class="form-group">
       <label for="level">User group</label>
       <div class="select">
         <select
