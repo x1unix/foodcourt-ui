@@ -15,6 +15,7 @@ import {SettingsComponent} from './management/settings/settings.component';
 import {ProfileEditorComponent} from './auth/profile-editor/profile-editor.component';
 import {ReportsComponent} from './reports/reports.component';
 import {WeeklyViewComponent} from './weekly-view/weekly-view.component';
+import { AccountRecoveryComponent } from './auth/account-recovery/account-recovery.component';
 
 
 const APP_ROUTES: Routes = [
@@ -116,6 +117,13 @@ const APP_ROUTES: Routes = [
     component: AuthComponent,
     data: {
       title: 'Authorization'
+    }
+  },
+  {
+    path: 'auth/forgot',
+    component: AccountRecoveryComponent,
+    data: {
+      title: 'Account recovery'
     }
   },
   {

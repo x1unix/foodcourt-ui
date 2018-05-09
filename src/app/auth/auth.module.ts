@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ClarityModule } from 'clarity-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
+import { AccountRecoveryComponent } from './account-recovery/account-recovery.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
     ClarityModule,
     ReactiveFormsModule
   ],
-  declarations: [AuthComponent, ProfileEditorComponent]
+  declarations: [AuthComponent, ProfileEditorComponent, AccountRecoveryComponent]
 })
 export class AuthModule { }

@@ -1,0 +1,62 @@
+<div class="login-wrapper">
+  <form
+    class="login"
+    (submit)="onSubmit($event)"
+    #uiForm="ngForm"
+  >
+    <label class="title">
+      FoodCourt
+      <h3 class="welcome" style="margin-top: 10px">Account recovery</h3>
+      <h5 class="hint">{{hint}}</h5>
+    </label>
+    <div class="login-group">
+      <ng-container *ngIf="isStep(recoverySteps.CodeRequest)">
+        <input
+          class="username"
+          type="email"
+          name="email"
+          placeholder="Your email"
+          [(ngModel)]="state.email"
+          [disabled]="isLoading"
+          required
+        />
+      </ng-container>
+      <ng-container *ngIf="isStep(recoverySteps.CodeSubmit)">
+        <input
+          class="username"
+          type="text"
+          name="code"
+          placeholder="Code"
+          [(ngModel)]="state.code"
+          [disabled]="isLoading"
+          required
+        />
+      </ng-container>
+      <ng-container *ngIf="isStep(recoverySteps.PasswordSubmit)">
+        <input
+          class="password"
+          type="password"
+          name="newPassword"
+          placeholder="Password"
+          [(ngModel)]="state.password"
+          [disabled]="isLoading"
+          required
+        />
+      </ng-container>
+
+      <div class="error active" *ngIf="isFailed">
+        {{error}}
+      </div>
+      <button
+        [clrLoading]="isLoading"
+        type="submit"
+        class="btn btn-primary"
+        (click)="onSubmit($event)"
+        [disabled]="isLoading || uiForm.invalid"
+      >
+        NEXT
+      </button>
+      <a routerLink="/auth" class="signup">Back to login</a>
+    </div>
+  </form>
+</div>
