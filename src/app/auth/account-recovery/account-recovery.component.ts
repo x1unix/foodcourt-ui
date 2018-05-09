@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadStatusComponent } from '../../shared/helpers';
 import { FormGroup } from '@angular/forms';
+import { PasswordRecoveryService } from '../services/password-recovery.service';
 
 enum RecoverySteps {
   CodeRequest,
@@ -13,7 +14,8 @@ enum RecoverySteps {
 @Component({
   selector: 'app-account-recovery',
   templateUrl: './account-recovery.component.html',
-  styleUrls: ['./account-recovery.component.scss']
+  styleUrls: ['./account-recovery.component.scss'],
+  providers: [PasswordRecoveryService]
 })
 export class AccountRecoveryComponent extends LoadStatusComponent implements OnInit {
 
@@ -27,7 +29,8 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
   state = {
     email: '',
     code: '',
-    password: ''
+    password: '',
+    token: ''
   };
 
   get recoverySteps() {
@@ -38,7 +41,7 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
     return false;
   }
 
-  constructor() {
+  constructor(private recovery: PasswordRecoveryService) {
     super();
   }
 
@@ -52,23 +55,39 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
   }
 
   onSubmit(event: Event) {
-    switch (this.currentStep) {
-      case RecoverySteps.CodeRequest:
-        this.onCodeRequire();
-        break;
-      case RecoverySteps.CodeSubmit:
-        this.onCodeSubmit();
-        break;
-      case RecoverySteps.PasswordSubmit:
-        this.onFinish();
-        break;
-      default:
-        break;
-    }
+    event.preventDefault();
+    this.handleAction();
     return false;
   }
 
-  private onCodeRequire() {
+  private async handleAction() {
+    this.isLoading = true;
+    try {
+      switch (this.currentStep) {
+        case RecoverySteps.CodeRequest:
+          await this.onCodeRequire();
+          break;
+        case RecoverySteps.CodeSubmit:
+          await this.onCodeSubmit();
+          break;
+        case RecoverySteps.PasswordSubmit:
+          await this.onPasswordSubmit();
+          break;
+        default:
+          break;
+      }
+
+      this.isLoaded = true;
+
+    } catch (ex) {
+      this.error = ex.message;
+      this.isFailed = true;
+    }
+  }
+
+  private async onCodeRequire() {
+    await this.recovery.requireResetCode(this.state.email);
+
     this.currentStep = RecoverySteps.CodeSubmit;
     const emailHidden = this.state.email.split('@').map((val, idx) => {
       if (idx === 0) {
@@ -80,12 +99,16 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
     this.hint = `We've sent you a code to ${emailHidden}, please enter it below to reset your password.`;
   }
 
-  private onCodeSubmit() {
+  private async onCodeSubmit() {
+    this.state.token = await this.recovery.submitCode(this.state.code);
+
     this.currentStep = RecoverySteps.PasswordSubmit;
     this.hint = 'Enter the new password for your account';
   }
 
-  private onFinish() {
+  private async onPasswordSubmit() {
+    await this.recovery.resetPassword(this.state.password, this.state.token);
+
     this.currentStep = RecoverySteps.Finish;
     this.hint = 'Your password has been changed. Now you can login with the new password to your account.';
   }
