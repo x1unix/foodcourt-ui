@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadStatusComponent } from '../../shared/helpers';
 import { FormGroup } from '@angular/forms';
 import { PasswordRecoveryService } from '../services/password-recovery.service';
+import { Router } from '@angular/router';
 
 enum RecoverySteps {
   CodeRequest,
@@ -41,7 +42,7 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
     return false;
   }
 
-  constructor(private recovery: PasswordRecoveryService) {
+  constructor(private recovery: PasswordRecoveryService, private router: Router) {
     super();
   }
 
@@ -74,6 +75,7 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
           await this.onPasswordSubmit();
           break;
         default:
+          this.router.navigate(['/auth']);
           break;
       }
 
@@ -100,7 +102,8 @@ export class AccountRecoveryComponent extends LoadStatusComponent implements OnI
   }
 
   private async onCodeSubmit() {
-    this.state.token = await this.recovery.submitCode(this.state.code);
+    const { email, code } = this.state;
+    this.state.token = await this.recovery.submitCode(email, code);
 
     this.currentStep = RecoverySteps.PasswordSubmit;
     this.hint = 'Enter the new password for your account';

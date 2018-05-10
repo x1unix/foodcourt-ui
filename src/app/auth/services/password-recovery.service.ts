@@ -24,7 +24,9 @@ export class PasswordRecoveryService {
    */
   private query(action: PasswordRecoveryActionType, data: { [key: string]: string }) {
     return this.http.post('/auth/recovery', { action, data })
-    .catch(err => this.helper.extractResponseError(err))
+    .catch(err => {
+      throw new Error(this.helper.extractResponseError(err));
+    })
     .toPromise();
   }
 
@@ -38,10 +40,11 @@ export class PasswordRecoveryService {
 
   /**
    * Submit password recovery code, returns reset token
+   * @param email Email
    * @param code Code
    */
-  submitCode(code: string): Promise<string> {
-    return <Promise<string>> this.query(PasswordRecoveryActionType.SubmitCode, { code });
+  submitCode(email: string, code: string): Promise<string> {
+    return <Promise<string>>this.query(PasswordRecoveryActionType.SubmitCode, { email, code });
   }
 
   /**
