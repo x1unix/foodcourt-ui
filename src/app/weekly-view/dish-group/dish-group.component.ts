@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@ang
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { IDish } from '../../shared/interfaces/dish';
 import { isEmpty } from 'lodash';
-import { PopupDirection } from './pop-direction';
 
 const noop = () => {};
 
@@ -43,7 +42,7 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
   /**
    * Pop-up direction
    */
-  @Input() popUpDirection: PopupDirection = PopupDirection.Right;
+  @Input() popUpDirection = 'right';
 
   /**
    * Is control disabled

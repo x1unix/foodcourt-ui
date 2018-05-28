@@ -34,6 +34,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PosterComponent } from './components/poster/poster.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { PopoverComponent } from './components/popover/popover.component';
 
 
 /**
@@ -63,7 +64,8 @@ import { NotificationComponent } from './components/notification/notification.co
     AlertComponent,
     PosterComponent,
     DatepickerComponent,
-    NotificationComponent
+    NotificationComponent,
+    PopoverComponent
   ],
   providers: [
     NotificationsService,
@@ -97,7 +99,8 @@ import { NotificationComponent } from './components/notification/notification.co
     AlertComponent,
     PosterComponent,
     DatepickerComponent,
-    NgSlimScrollModule
+    NgSlimScrollModule,
+    PopoverComponent
   ]
 })
 export class SharedModule { }
