@@ -3,7 +3,7 @@
     {{label}}
   </div>
   <div class="card-block dish-group__list">
-    <div class="dish-group__item" *ngFor="let dish of dishes">
+    <div class="dish-group__item" appPopoverTrigger [delay]="300" *ngFor="let dish of dishes">
       <button
         class="btn btn-block dish-group__selector btn-sm"
         [ngClass]="{'btn-success': dish.id === value, 'btn-link': dish.id !== value}"
@@ -15,13 +15,14 @@
           {{dish.label}}
         </span>
       </button>
-      <span class="dish-group__pop-up {{popUpDirection}}">
-        <span class="dish-group__pop-up__content">
-          <span class="dish-group__pop-up__block">
-            {{getPopUpText(dish)}}
-          </span>
-        </span>
-      </span>
+      <app-popover [direction]="popUpDirection" [wrapContent]="false" [shadowed]="true">
+         <!-- {{getPopUpText(dish)}} -->
+        <app-food-info
+          [label]="dish.label"
+          [description]="dish.description"
+          [imageUrl]="patchUrl(dish.photoUrl)"
+        ></app-food-info>
+      </app-popover>
     </div>
   </div>
 </div>

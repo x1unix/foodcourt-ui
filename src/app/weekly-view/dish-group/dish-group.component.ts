@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@ang
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { IDish } from '../../shared/interfaces/dish';
 import { isEmpty } from 'lodash';
-import { PopupDirection } from './pop-direction';
+import { WebHelperService } from '../../shared/services';
 
 const noop = () => {};
 
@@ -43,7 +43,7 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
   /**
    * Pop-up direction
    */
-  @Input() popUpDirection: PopupDirection = PopupDirection.Right;
+  @Input() popUpDirection = 'right';
 
   /**
    * Is control disabled
@@ -82,7 +82,7 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
     this.onChangeCallback(v);
   }
 
-  constructor() { }
+  constructor(private helper: WebHelperService) { }
 
   onBlur() {
     this.onTouchedCallback();
@@ -128,6 +128,10 @@ export class DishGroupComponent implements OnInit, ControlValueAccessor {
 
   getPopUpText(item: IDish) {
     return isEmpty(item.description) ? item.label : `${item.label} (${item.description})`;
+  }
+
+  patchUrl(urlString: string) {
+    return this.helper.patchUrlString(urlString);
   }
 
 }
