@@ -26,8 +26,9 @@
           [dropZones]="cartDropZone"
         >
           <div class="card-header dishes-list__label">
-            {{item.label}}
-
+            <span class="dishes-list__name">
+               {{item.label}}
+            </span>
             <span class="label label-{{getDishCategoryColor(item.type)}} dishes-list__type">
               {{getDishCategory(item.type)}}
             </span>

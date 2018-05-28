@@ -53,6 +53,11 @@
   font-size: 11pt;
 }
 
+.dishes-list__label {
+  overflow: hidden;
+  width: 100%;
+}
+
 .dishes-list__type {
   float: right;
   margin-right: 0;
