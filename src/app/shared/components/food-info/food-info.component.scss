@@ -1,0 +1,28 @@
+$max-height: 144px;
+$max-width: 256px;
+
+:host {
+  width: $max-width;
+  overflow: hidden;
+  display: block;
+}
+.food-info__image {
+  width: $max-width;
+  height: $max-height;
+  object-fit: cover;
+}
+
+.food-card__title {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.food-info__text {
+  padding: 10px;
+  white-space: initial;
+}
+
+.food-info__description {
+  color: rgb(86, 86, 86);
+  line-height: 125%;
+}

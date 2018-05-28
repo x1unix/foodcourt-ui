@@ -40,9 +40,9 @@
         <span class="badge badge-{{badgeColor}}">{{category}}</span>
       </div>
       <div *ngIf="showRatings" class="rating text-right col-xs-8">
-        <app-rating 
-          [rating]="rating" 
-          [readonly]="disabled || !rateable" 
+        <app-rating
+          [rating]="rating"
+          [readonly]="disabled || !rateable"
           (change)="ratingChange.emit($event)"
         ></app-rating>
       </div>

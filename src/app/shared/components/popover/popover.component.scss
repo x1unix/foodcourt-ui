@@ -7,7 +7,7 @@ $pop-anim-time: 0.15s;
 @keyframes popover-slide-right {
   from {
     opacity: 0.3;
-    transform: translate(15%, -50%);
+    transform: translate(10%, -50%);
   }
 
   to {
@@ -19,7 +19,7 @@ $pop-anim-time: 0.15s;
 @keyframes popover-slide-left {
   from {
     opacity: 0.3;
-    transform: translate(-15%, -50%);
+    transform: translate(-10%, -50%);
   }
 
   to {
@@ -60,6 +60,7 @@ $pop-anim-time: 0.15s;
   transform: translate(0, -50%);
   opacity: 1;
   white-space: nowrap;
+  border-radius: 2px;
 
   &:before,
   &:after

@@ -15,8 +15,13 @@
           {{dish.label}}
         </span>
       </button>
-      <app-popover [direction]="popUpDirection">
-         {{getPopUpText(dish)}}
+      <app-popover [direction]="popUpDirection" [wrapContent]="false">
+         <!-- {{getPopUpText(dish)}} -->
+        <app-food-info
+          [label]="dish.label"
+          [description]="dish.description"
+          [imageUrl]="patchUrl(dish.photoUrl)"
+        ></app-food-info>
       </app-popover>
     </div>
   </div>

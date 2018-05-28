@@ -36,6 +36,7 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import { NotificationComponent } from './components/notification/notification.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { PopoverTriggerDirective } from './directives/popover-trigger.directive';
+import { FoodInfoComponent } from './components/food-info/food-info.component';
 
 
 /**
@@ -67,7 +68,8 @@ import { PopoverTriggerDirective } from './directives/popover-trigger.directive'
     DatepickerComponent,
     NotificationComponent,
     PopoverComponent,
-    PopoverTriggerDirective
+    PopoverTriggerDirective,
+    FoodInfoComponent
   ],
   providers: [
     NotificationsService,
@@ -103,7 +105,8 @@ import { PopoverTriggerDirective } from './directives/popover-trigger.directive'
     DatepickerComponent,
     NgSlimScrollModule,
     PopoverComponent,
-    PopoverTriggerDirective
+    PopoverTriggerDirective,
+    FoodInfoComponent
   ]
 })
 export class SharedModule { }

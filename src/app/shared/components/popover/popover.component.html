@@ -1,7 +1,12 @@
 <span class="popover {{direction}}">
-  <span class="popover__content">
-    <span class="popover__block">
-      <ng-content></ng-content>
+  <ng-container *ngIf="wrapContent">
+    <span class="popover__content">
+      <span class="popover__block">
+        <ng-content></ng-content>
+      </span>
     </span>
-  </span>
+  </ng-container>
+  <ng-container *ngIf="!wrapContent">
+    <ng-content></ng-content>
+  </ng-container>
 </span>

@@ -1,0 +1,18 @@
+<div class="food-info__frame">
+  <img [src]="imageUrl" class="food-info__image" [alt]="label" />
+</div>
+<div class="food-info__text">
+  <div class="food-info__title">
+    <h4 class="food-card__title">
+      {{label}}
+    </h4>
+  </div>
+  <div class="food-info__description">
+    <span *ngIf="hasDescription">
+      {{description}}
+    </span>
+    <span *ngIf="!hasDescription">
+      <i>No description</i>
+    </span>
+  </div>
+</div>
