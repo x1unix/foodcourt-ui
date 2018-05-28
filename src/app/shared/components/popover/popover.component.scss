@@ -2,6 +2,7 @@ $pop-arrow-size: 5px;
 $pop-bg: #fafafa;
 $pop-border-bg: #ccc;
 $pop-anim-time: 0.15s;
+$pop-shadow-color: rgba(0,0,0,0.2);
 
 
 @keyframes popover-slide-right {
@@ -78,6 +79,10 @@ $pop-anim-time: 0.15s;
   &:after {
     border-width: $pop-arrow-size + 1px;
     z-index: -1;
+  }
+
+  &.popover--shadowed {
+    box-shadow: 0px 1px 5px 0px $pop-shadow-color;
   }
 }
 

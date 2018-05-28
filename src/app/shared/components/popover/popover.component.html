@@ -1,4 +1,4 @@
-<span class="popover {{direction}}">
+<span class="popover {{direction}}" [ngClass]="{'popover--shadowed': shadowed}">
   <ng-container *ngIf="wrapContent">
     <span class="popover__content">
       <span class="popover__block">

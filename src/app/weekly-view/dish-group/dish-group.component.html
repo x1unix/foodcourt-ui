@@ -15,7 +15,7 @@
           {{dish.label}}
         </span>
       </button>
-      <app-popover [direction]="popUpDirection" [wrapContent]="false">
+      <app-popover [direction]="popUpDirection" [wrapContent]="false" [shadowed]="true">
          <!-- {{getPopUpText(dish)}} -->
         <app-food-info
           [label]="dish.label"

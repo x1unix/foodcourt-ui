@@ -17,6 +17,8 @@ export class PopoverComponent implements OnInit {
 
   @Input() wrapContent = true;
 
+  @Input() shadowed = false;
+
   @Input() set direction(newDirection: string) {
     if (!PopoverDirection.hasOwnProperty(newDirection)) {
       throw new ReferenceError(`Unknown direction property value: "${newDirection}"`);
