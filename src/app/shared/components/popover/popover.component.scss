@@ -1,7 +1,32 @@
 $pop-arrow-size: 5px;
 $pop-bg: #fafafa;
 $pop-border-bg: #ccc;
+$pop-anim-time: 0.15s;
 
+
+@keyframes popover-slide-right {
+  from {
+    opacity: 0.3;
+    transform: translate(15%, -50%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@keyframes popover-slide-left {
+  from {
+    opacity: 0.3;
+    transform: translate(-15%, -50%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
 
 @media(min-width: 768px) {
   body .popover-trigger {
@@ -58,6 +83,8 @@ $pop-border-bg: #ccc;
 .popover--top-right {
   left: 100%;
   margin-left: 10px;
+  animation: popover-slide-right $pop-anim-time ease-out 0s;
+
   &:before {
     border-right-color: $pop-bg;
     right: 100%;
@@ -71,6 +98,8 @@ $pop-border-bg: #ccc;
 .popover--top-left {
   right: 100%;
   margin-right: 10px;
+  animation: popover-slide-left $pop-anim-time ease-out 0s;
+
   &:before {
     border-left-color: $pop-bg;
     left: 100%;
