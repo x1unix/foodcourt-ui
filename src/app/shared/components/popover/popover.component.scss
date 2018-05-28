@@ -7,7 +7,7 @@ $pop-border-bg: #ccc;
   body .popover-trigger {
     position: relative;
 
-    &:hover {
+    &.popover-trigger--triggered {
       .popover {
         display: inline-block;
       }
